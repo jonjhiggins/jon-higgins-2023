@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { StaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import Heading from "~/components/heading";
 import COLOURS from "~/settings/colours";
@@ -35,9 +35,11 @@ export default function ArticleHeaderImages({ heroImages }) {
           allImageSharp {
             edges {
               node {
-                fluid(maxWidth: 933) {
-                  ...GatsbyImageSharpFluid
-                  originalName
+                gatsbyImageData(layout: FULL_WIDTH)
+                parent {
+                  ... on File {
+                    name
+                  }
                 }
               }
             }
@@ -57,7 +59,7 @@ export default function ArticleHeaderImages({ heroImages }) {
         return (
           <HeroImages>
             <Figure>
-              <Img fluid={image.node.fluid} alt={heroImages[0].alt} />
+              <GatsbyImage fluid={image.node.fluid} alt={heroImages[0].alt} />
               {heroImages[0].caption && (
                 <Heading element={"figcaption"} size={1}>
                   {heroImages[0].caption}

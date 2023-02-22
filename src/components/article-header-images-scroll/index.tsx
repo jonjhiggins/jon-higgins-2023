@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { StaticQuery, graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import { keyframes } from "@emotion/react";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 import Heading from "~/components/heading";
 import COLOURS from "~/settings/colours";
@@ -60,48 +60,46 @@ const ImgHolder = styled("span")`
 `;
 
 export default function ArticleHeaderImagesScroll({ heroImages }) {
-  return (
-    <StaticQuery
-      query={graphql`
-        query HeaderImages {
-          allImageSharp {
-            edges {
-              node {
-                fluid(maxWidth: 466) {
-                  ...GatsbyImageSharpFluid
-                  originalName
-                }
+  const data = useStaticQuery(graphql`
+    query HeaderImages {
+      allImageSharp {
+        edges {
+          node {
+            gatsbyImageData(layout: FULL_WIDTH)
+            parent {
+              ... on File {
+                name
               }
             }
           }
         }
-      `}
-      render={(data) => {
-        const images = data.allImageSharp.edges.filter((edge) =>
-          heroImages.find(
-            (heroImage) => heroImage.image === edge.node.fluid.originalName
-          )
-        );
-        if (!images) {
-          return null;
-        }
-
-        return (
-          <HeroImages>
-            {images.map((img, index) => (
-              <Figure key={index}>
-                <ImgHolder delay={index !== 0}>
-                  <Img fluid={img.node.fluid} alt={heroImages[index].alt} />
-                </ImgHolder>
-                <Heading element={"figcaption"} size={1}>
-                  {heroImages[index].caption}
-                </Heading>
-              </Figure>
-            ))}
-          </HeroImages>
-        );
-      }}
-    />
+      }
+    }
+  `);
+  const images = data.allImageSharp.edges.filter((edge) =>
+    heroImages.find(
+      (heroImage) => heroImage.image === edge.node.fluid.originalName
+    )
+  );
+  if (!images) {
+    return null;
+  }
+  return (
+    <HeroImages>
+      {images.map((img, index) => (
+        <Figure key={index}>
+          <ImgHolder delay={index !== 0}>
+            <GatsbyImage
+              image={img.childImageSharp.gatsbyImageData}
+              alt={heroImages[index].alt}
+            />
+          </ImgHolder>
+          <Heading element={"figcaption"} size={1}>
+            {heroImages[index].caption}
+          </Heading>
+        </Figure>
+      ))}
+    </HeroImages>
   );
 }
 
