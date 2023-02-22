@@ -1,17 +1,33 @@
-import React from 'react'
+import React, { CSSProperties, memo } from "react";
 import {
   TransitionGroup,
   Transition as ReactTransition,
-} from 'react-transition-group'
-import PropTypes from 'prop-types'
+  TransitionStatus,
+} from "react-transition-group";
+import PropTypes from "prop-types";
+import { PageProps } from "gatsby";
+
+interface TransitionProps {
+  children: React.ReactNode;
+  location: PageProps["location"];
+}
+
+type TransitionStyles = Record<
+  TransitionStatus,
+  {
+    position?: CSSProperties["position"];
+    opacity?: CSSProperties["opacity"];
+    transition?: CSSProperties["transition"];
+  }
+>;
 
 // Adapted from https://divdev.io/animating-gatsby-pt/
 
-const timeout = 500
+const timeout = 500;
 
-const getTrasitionStyles = {
+const getTrasitionStyles: TransitionStyles = {
   entering: {
-    position: 'absolute',
+    position: "absolute",
     opacity: 0,
   },
   entered: {
@@ -21,35 +37,28 @@ const getTrasitionStyles = {
     transition: `all ${timeout}ms ease-in-out`,
     opacity: 0,
   },
-}
+  exited: {},
+  unmounted: {},
+};
 
-class Transition extends React.PureComponent {
-  render() {
-    // Destructuring props to avoid garbage this.props... in return statement
-    const { children, location } = this.props
+const Transition = memo(function Transition({
+  children,
+  location,
+}: TransitionProps) {
+  return (
+    <TransitionGroup>
+      {/* the key is necessary here because our ReactTransition needs to know
+    when pages are entering/exiting the DOM */}
+      <ReactTransition
+        key={location.pathname}
+        timeout={{ enter: timeout, exit: timeout }}
+      >
+        {(status) => (
+          <div style={{ ...getTrasitionStyles[status] }}>{children}</div>
+        )}
+      </ReactTransition>
+    </TransitionGroup>
+  );
+});
 
-    return (
-      <TransitionGroup>
-        {/* the key is necessary here because our ReactTransition needs to know
-        when pages are entering/exiting the DOM */}
-        <ReactTransition
-          key={location.pathname}
-          timeout={{ enter: timeout, exit: timeout }}
-        >
-          {status => (
-            <div style={{ ...getTrasitionStyles[status] }}>{children}</div>
-          )}
-        </ReactTransition>
-      </TransitionGroup>
-    )
-  }
-}
-
-Transition.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-}
-
-export default Transition
+export default Transition;
