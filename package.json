@@ -22,20 +22,30 @@
     "gatsby": "^5.6.1",
     "gatsby-plugin-emotion": "^8.7.0",
     "gatsby-plugin-image": "^3.7.0",
+    "gatsby-plugin-layout": "^4.7.0",
     "gatsby-plugin-mdx": "^5.7.0",
     "gatsby-plugin-sharp": "^5.7.0",
     "gatsby-plugin-sitemap": "^6.7.0",
+    "gatsby-remark-prismjs": "^7.7.0",
     "gatsby-source-filesystem": "^5.7.0",
     "gatsby-transformer-sharp": "^5.7.0",
+    "hex-rgb": "^5.0.0",
+    "prismjs": "^1.29.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-transition-group": "^4.4.5",
+    "url-search-params-polyfill": "^8.1.1",
+    "what-input": "^5.2.12"
   },
   "devDependencies": {
     "@types/node": "^18.14.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/react-helmet": "^6.1.6",
     "eslint-config-react-app": "^7.0.1",
     "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "typescript": "^4.9.5"
   }
 }
