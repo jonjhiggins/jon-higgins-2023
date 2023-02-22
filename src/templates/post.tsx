@@ -89,7 +89,11 @@ export const pageQuery = graphql`
         heroVideos
         heroVideoAutoPlay
         heroImages {
-          image
+          image {
+            childImageSharp {
+              gatsbyImageData(layout: FULL_WIDTH)
+            }
+          }
           caption
           alt
         }

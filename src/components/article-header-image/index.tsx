@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { StaticQuery, graphql } from "gatsby";
+import { StaticQuery, graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 import Heading from "~/components/heading";
@@ -29,47 +29,19 @@ const Figure = styled("figure")`
 
 export default function ArticleHeaderImages({ heroImages }) {
   return (
-    <StaticQuery
-      query={graphql`
-        query HeaderImage {
-          allImageSharp {
-            edges {
-              node {
-                gatsbyImageData(layout: FULL_WIDTH)
-                parent {
-                  ... on File {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      `}
-      render={(data) => {
-        const image = data.allImageSharp.edges.find((edge) => {
-          const pieces = heroImages[0].image.split("/");
-          const originalName = pieces[pieces.length - 1];
-          return edge.node.fluid.originalName === originalName;
-        });
-        if (!image) {
-          return null;
-        }
-
-        return (
-          <HeroImages>
-            <Figure>
-              <GatsbyImage fluid={image.node.fluid} alt={heroImages[0].alt} />
-              {heroImages[0].caption && (
-                <Heading element={"figcaption"} size={1}>
-                  {heroImages[0].caption}
-                </Heading>
-              )}
-            </Figure>
-          </HeroImages>
-        );
-      }}
-    />
+    <HeroImages>
+      <Figure>
+        <GatsbyImage
+          image={heroImages[0].image.childImageSharp.gatsbyImageData}
+          alt={heroImages[0].alt}
+        />
+        {heroImages[0].caption && (
+          <Heading element={"figcaption"} size={1}>
+            {heroImages[0].caption}
+          </Heading>
+        )}
+      </Figure>
+    </HeroImages>
   );
 }
 
