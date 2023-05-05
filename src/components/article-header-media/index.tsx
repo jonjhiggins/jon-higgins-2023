@@ -43,9 +43,12 @@ export default function ArticleHeaderMedia({
           muted={heroVideoAutoPlay}
           controls={!heroVideoAutoPlay}
           loop
-          poster={require(`../../../${videoPath}.jpg`)}
+          poster={require(`../../../${videoPath}.jpg`).default}
         >
-          <source src={require(`../../../${videoPath}.mp4`)} type="video/mp4" />
+          <source
+            src={require(`../../../${videoPath}.mp4`).default}
+            type="video/mp4"
+          />
         </video>
       )}
       {/* Single image hero */}
