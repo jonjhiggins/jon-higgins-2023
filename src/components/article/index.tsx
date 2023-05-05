@@ -14,7 +14,7 @@ const columnTemplates = {
   [article-main-end] 1fr [article-full-end]`,
 };
 
-const Article = styled("div")`
+const Article = styled("div")<{ hasMedia: boolean }>`
   border: ${(props) =>
     props.border ? `${rem(2)} solid ${COLOURS.PRIMARY}` : null};
   padding-top: ${(props) =>
