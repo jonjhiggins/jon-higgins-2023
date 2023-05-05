@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import { PageProps, graphql } from "gatsby";
 import PageWrapper from "~/components/page-wrapper";
 import ArticleWrapper from "~/components/article-wrapper";
 import Article from "~/components/article";
@@ -12,8 +12,11 @@ import HeadingBackground from "~/components/heading-background";
 import Heading from "~/components/heading";
 import SEO from "~/components/seo";
 
-export default function Template({ data, pageTitle }) {
+export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
+  if (!markdownRemark || !markdownRemark.frontmatter) {
+    throw new Error("Could not read markdown");
+  }
   const { frontmatter, html } = markdownRemark;
   const {
     title,
@@ -32,10 +35,10 @@ export default function Template({ data, pageTitle }) {
   const hasMedia = videoPath !== null || (heroImages && heroImages.length > 0);
   return (
     <PageWrapper>
-      <SEO title={pageTitle || title} />
+      <SEO title={title} />
       <HeadingBackground>{title}</HeadingBackground>
       <ArticleWrapper>
-        <Article hasMedia={hasMedia}>
+        <Article hasMedia={!!hasMedia}>
           <ArticleContent>
             {(videoPath || heroImages) && (
               <ArticleHeaderMedia
@@ -79,8 +82,8 @@ Template.propTypes = {
 };
 
 export const pageQuery = graphql`
-  query BlogPostByPath($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query BlogPost($id: String!) {
+    markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
         date(formatString: "DD MMMM YYYY")
