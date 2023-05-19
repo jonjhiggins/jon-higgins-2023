@@ -37,13 +37,13 @@ _Couldn't this task be automated? And couldn't we better protect the layout from
 
 ### Grunt Email Boilerplate to the rescue!
 
-[Grunt Email Boilerplate](https://github.com/dwightjack/grunt-email-boilerplate) is a vanilla email template that takes advantage of task-runner [Grunt](http://gruntjs.com) and it's many plugins/tasks. Out of the box it:
+[Grunt Email Boilerplate](https://github.com/dwightjack/grunt-email-boilerplate) is a vanilla email template that takes advantage of task-runner [Grunt](https://gruntjs.com) and it's many plugins/tasks. Out of the box it:
 
-* Provides templating via EJS
-* Watches and builds your SASS
-* Runs your content through Premailer
-* Optimises images
-* Optionally, sends the email via Nodemailer
+- Provides templating via EJS
+- Watches and builds your SASS
+- Runs your content through Premailer
+- Optimises images
+- Optionally, sends the email via Nodemailer
 
 ...which solves most of our problems outlined above:
 

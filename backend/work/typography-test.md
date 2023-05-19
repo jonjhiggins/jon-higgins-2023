@@ -6,7 +6,7 @@ date: 2019-02-01
 heroImages:
   - image: /assets/typography-test.png
     alt: Typography test
-contentUrl: http://www.google.com
+contentUrl: https://www.google.com
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
 archive: false
 hide: true
@@ -64,7 +64,7 @@ Vitae sapien pellentesque habitant morbi tristique senectus. Donec pretium vulpu
 
 ###### Links
 
-Vitae sapien pellentesque habitant morbi tristique senectus. [Donec pretium vulputate sapien nec sagittis](http://www.google.com). Pellentesque sit amet porttitor eget dolor morbi. Sagittis orci a scelerisque purus semper eget duis. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Pulvinar elementum integer enim neque.
+Vitae sapien pellentesque habitant morbi tristique senectus. [Donec pretium vulputate sapien nec sagittis](https://www.google.com). Pellentesque sit amet porttitor eget dolor morbi. Sagittis orci a scelerisque purus semper eget duis. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Pulvinar elementum integer enim neque.
 
 ###### Lists - unordered
 

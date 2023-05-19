@@ -6,7 +6,7 @@ class: opep-website
 date: 2013-07-01
 type: web
 skills: [plan, design, build]
-contentUrl: http://www.opep.co.uk
+contentUrl: https://www.opep.co.uk
 images: [article-image.jpg]
 description: Create new resource-sharing website for PE organisation aiming for outstanding lessons.
 archive: true
@@ -18,10 +18,10 @@ OPEP are a collective of teachers committed to making PE lessons and learning ou
 
 OPEP and its users were limited by the functionality of their previous website:
 
-* Finding, viewing and contributing resources were not quick, simple processes.
-* Reviewing and suggesting additions to articles was not possible.
-* There were limits on the number and type of resources that could be uploaded.
-* Viewing on mobile reduced the functionality of the site, to the detriment of user experience.
+- Finding, viewing and contributing resources were not quick, simple processes.
+- Reviewing and suggesting additions to articles was not possible.
+- There were limits on the number and type of resources that could be uploaded.
+- Viewing on mobile reduced the functionality of the site, to the detriment of user experience.
 
 I was asked to work on creating a new site to resolve these issues and look for other areas for improvement. On reviewing the site I identified the site's information architecture, visual style and readability of resources as areas for improvement.
 
@@ -35,7 +35,7 @@ To improve the processes of finding, viewing and contributing resources I create
 
 The admin's experience was also greatly improved by switching the site over to Wordpress, giving them control over all the site's content from wherever they are.
 
-Though there were time pressures on the project, user research highlighted the requirement for a responsive approach / seamless user experience across devices. I opted for the [Frameless](http://framelessgrid.com/) grid system as this allowed a responsive approach but designing column by column was less time-consuming than a fluid grid system.
+Though there were time pressures on the project, user research highlighted the requirement for a responsive approach / seamless user experience across devices. I opted for the [Frameless](https://framelessgrid.com/) grid system as this allowed a responsive approach but designing column by column was less time-consuming than a fluid grid system.
 
 #### The outcome
 

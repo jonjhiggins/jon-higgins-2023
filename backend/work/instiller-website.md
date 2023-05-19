@@ -7,7 +7,7 @@ date: 2013-08-01
 type: web
 skills: [design, build]
 images: [article-image.jpg]
-contentUrl: http://www.instiller.co.uk
+contentUrl: https://www.instiller.co.uk
 description: Communicate and demonstrate that this email marketing solution is the choice for digital agencies.
 archive: true
 ---
@@ -20,37 +20,37 @@ Instiller were happy with the general visual aesthetic, the main areas for impro
 
 ##### Communicate updated brand
 
-* Brand should appear more "helpful" and approachable, to encourage communication from prospects or clients.
-* Simplify visual aesthetic to reflect Instiller's ease-of-use.
+- Brand should appear more "helpful" and approachable, to encourage communication from prospects or clients.
+- Simplify visual aesthetic to reflect Instiller's ease-of-use.
 
 ##### Demonstrate the product's benefits
 
-* Small screenshots used did not demonstrate product's ease-of-use or provide visual appeal. Instiller wanted the product to come to the fore, rather than hide away.
+- Small screenshots used did not demonstrate product's ease-of-use or provide visual appeal. Instiller wanted the product to come to the fore, rather than hide away.
 
 ##### Resolve build quality issues
 
-* The site's approach to responsive layouts. ![Responsive issue](/assets/work-item-instiller-site-responsive-issue.png 'Responsive issue')
-* Grid system implemented did not allow for more complex layouts. ![Grid issue](/assets/work-item-instiller-site-grid-issue.png 'Grid issue')
-* Lack of consistent vertical rhythmn.
-* Lack of consistent typographic rhythm.
-* Adding new pages and layouts was disproprtionately time consuming.
+- The site's approach to responsive layouts. ![Responsive issue](/assets/work-item-instiller-site-responsive-issue.png "Responsive issue")
+- Grid system implemented did not allow for more complex layouts. ![Grid issue](/assets/work-item-instiller-site-grid-issue.png "Grid issue")
+- Lack of consistent vertical rhythmn.
+- Lack of consistent typographic rhythm.
+- Adding new pages and layouts was disproprtionately time consuming.
 
 #### The solution
 
 ##### Communicate updated brand
 
-* Visual style refined in line with updated brand - changes centred around appearing more approachable and reflecting product's ease-of-use.
+- Visual style refined in line with updated brand - changes centred around appearing more approachable and reflecting product's ease-of-use.
 
 ##### Demonstrate the product's benefits
 
-* Revised design to include large, high-quality SVG screenshots. Simple animations communicate product's ease-of-use.
+- Revised design to include large, high-quality SVG screenshots. Simple animations communicate product's ease-of-use.
 
 ##### Resolve build quality issues
 
-* Rebuild from ground-up using [Bourbon Neat](http://neat.bourbon.io/) responsive grid system.
-* Implement a baseline grid in multiples of 6.
-* Design and implement a consistent type system using [Modular Scale](http://modularscale.com).
-* Switch whole site over to Wordpress.
+- Rebuild from ground-up using [Bourbon Neat](https://neat.bourbon.io/) responsive grid system.
+- Implement a baseline grid in multiples of 6.
+- Design and implement a consistent type system using [Modular Scale](https://modularscale.com).
+- Switch whole site over to Wordpress.
 
 #### The outcome
 

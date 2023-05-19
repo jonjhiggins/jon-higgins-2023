@@ -1,6 +1,6 @@
 ---
 date: 2016-05-11T00:00:00.000Z
-title: 'Animated letters: DOM vs Canvas performance'
+title: "Animated letters: DOM vs Canvas performance"
 description: >-
   Optimising the performance of a GreenSock-based continuous scaling animation
   using Paper.js and canvas.
@@ -18,7 +18,7 @@ The goal is to create a continuous animation of letters "A" to "B" using a web b
 
 Start with the simplest option: a GreenSock timeline to control HTML elements. Each letter is scaled from 0 to a "mid" size, then scaled up to a "big" size that either causes the letter to be clipped outside the canvas (A) or covers the canvas background (B).
 
-[View on Codepen](http://codepen.io/jonjhiggins/full/EKMEvd/)
+[View on Codepen](https://codepen.io/jonjhiggins/full/EKMEvd/)
 
 <div data-pullquote="in Chrome there are jagged edges as the letter is scaled up"></div>
 
@@ -28,13 +28,13 @@ Some might argue this isn't that noticeable on fast transitions, but it bothered
 
 ### Version 2: Scaling up HTML elements
 
-[Stackoverflow](http://stackoverflow.com/a/8038694/1980357) provided the following suggestion:
+[Stackoverflow](https://stackoverflow.com/a/8038694/1980357) provided the following suggestion:
 
 > Webkit treats 3d transformed elements as textures instead of vectors in order to provide hardware 3d acceleration. The only solution to this would be to increase the size of the text and downscaling the element, in essence creating a higher res texture.
 
 So I forked the first Codepen and tried this out. It did indeed fix the jagged edges, but the performance was terrible:
 
-[View on Codepen](http://codepen.io/jonjhiggins/full/PNLRmZ/)
+[View on Codepen](https://codepen.io/jonjhiggins/full/PNLRmZ/)
 
 ### Version 3: Canvas
 
@@ -42,7 +42,7 @@ As I've previously had success with better performance with `<canvas>` element t
 
 ### Version 4: Paper.js, canvas and GreenSock
 
-There are a few canvas JS libraries out there and I'd not previously used any of them, but I really liked the look of [Paper.js](http://paperjs.org) - it had all the features I needed, was well documented and I was excited by the possibilities it provided.
+There are a few canvas JS libraries out there and I'd not previously used any of them, but I really liked the look of [Paper.js](https://paperjs.org) - it had all the features I needed, was well documented and I was excited by the possibilities it provided.
 
 #### Retina-ready
 
@@ -59,7 +59,7 @@ Paper.js is designed to be used in `<script type="text/paperscript">` blocks, bu
 
 You also have to manually tell Paper.js to render the view via either `paper.view.draw()` (single draw) or `view.onFrame` (animation loop). Failing to do so means nothing will be drawn, as I found out!
 
-As well as the documentation I found Paper.js Codepens useful for this, e.g. [PaperJS Diamond hover by LegoMushroom](http://codepen.io/sol0mka/pen/yvaJw).
+As well as the documentation I found Paper.js Codepens useful for this, e.g. [PaperJS Diamond hover by LegoMushroom](https://codepen.io/sol0mka/pen/yvaJw).
 
 #### Layout
 
@@ -105,4 +105,4 @@ No jagged edges! The animation was smooth all the way through and had none of th
 
 The performance didn't seem much different on my MacBook (the HTML version ran fine), however on a VM IE10 rendering improved on the canvas version from 50-58FPS up to a steady 66FPS, while my iPad 2 improved from 40-55FPS up to 55-59FPS. This suggests that for complex animations or lower powered devices a canvas solution would be best, though case-by-case testing would be needed.
 
-<iframe height='400' scrolling='no' src='//codepen.io/jonjhiggins/embed/ZWPgqg/?height=400&theme-id=0&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/jonjhiggins/pen/ZWPgqg/'>A to B: Paper.js / Canvas</a> by Jon Higgins (<a href='http://codepen.io/jonjhiggins'>@jonjhiggins</a>) on <a href='http://codepen.io'>CodePen</a>.
+<iframe height='400' scrolling='no' src='//codepen.io/jonjhiggins/embed/ZWPgqg/?height=400&theme-id=0&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/jonjhiggins/pen/ZWPgqg/'>A to B: Paper.js / Canvas</a> by Jon Higgins (<a href='https://codepen.io/jonjhiggins'>@jonjhiggins</a>) on <a href='https://codepen.io'>CodePen</a>.

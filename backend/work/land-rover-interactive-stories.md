@@ -1,11 +1,10 @@
 ---
 date: 2015-09-01T00:00:00.000Z
 title: Land Rover interactive stories
-description: 'Provide immersive, magazine-style articles for global premium brand.'
+description: "Provide immersive, magazine-style articles for global premium brand."
 heroVideos:
   - interactive-story-video-short
 heroVideoAutoPlay: true
-contentUrl: 'http://www.landrover.co.uk/above-and-beyond/featured-articles/index.html'
 archive: false
 hide: false
 category: work

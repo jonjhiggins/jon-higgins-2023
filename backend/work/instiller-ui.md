@@ -5,7 +5,7 @@ description: >-
   Design user interface for powerful app used daily to send millions of emails
   for brands such as Premier Inn and HMV
 heroVideoAutoPlay: false
-contentUrl: 'http://www.instiller.co.uk'
+contentUrl: "https://www.instiller.co.uk"
 archive: true
 hide: false
 category: work
@@ -32,6 +32,5 @@ Grids and consistent navigational elements improve usability. Colour was reduced
 ###### Powerful
 
 ![Screenshot of UI element](/assets/work-article-instiller-ui-item.png)
-
 
 UI widgets, such as javascript emulating a single page web-app improve user experience and reduce development time.

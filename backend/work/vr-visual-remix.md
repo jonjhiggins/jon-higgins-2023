@@ -48,7 +48,7 @@ After discussing with our group I eventually settled on a designing and building
 
 <p data-pullquote="Focus on one key mechanic.">Our tutors emphasised that our experience should have one key mechanic and we should focus on that due to the short time frame. The Oculus Go is somewhat limited in mechanics as it only has one controller and 3DOF (three degrees-of-freedom) &ndash; many of its experiences are quite static &ndash; at the same time movement was a key part of my project.</p>
 
- I came up with the idea of the mechanic being the user drawing shapes with the Go’s controller, which would be recognised by the Go as specific shapes. These shapes would then toggle audio tracks on/off. I didn’t have a clue how I would go about this but my tutors thought it was probably doable if I could get the shape recognition to work well.
+I came up with the idea of the mechanic being the user drawing shapes with the Go’s controller, which would be recognised by the Go as specific shapes. These shapes would then toggle audio tracks on/off. I didn’t have a clue how I would go about this but my tutors thought it was probably doable if I could get the shape recognition to work well.
 
 <div data-pullquote="Work through user flows before building... It's easy for users to get lost in VR"></div>
 
@@ -66,14 +66,13 @@ Rather than jump straight in we divided up our project into tasks that we manage
 
 The other students and myself now had it clear in our minds how important the one game mechanic was to our projects, in my case this was the user drawing shapes and having them recognised. I had broken this down into two separate parts: show what user draws via controller and recognise users shapes. I set about sketching out the “show what user draws via controller” in Unity. I used a [trail renderer](https://docs.unity3d.com/Manual/class-TrailRenderer.html) that turned on when the user’s controller trigger was pressed and disappeared when the trigger was released (using the incredible [VRTK](https://vrtoolkit.readme.io/) asset for communication with the VR headset).
 
-Recognising the shapes proved to be more challenging. I had no idea where to start with this so my tutor suggested I looked at [IBM Watson](https://www.ibm.com/watson), this made sense as I had previously used other image recognition services for web projects and it has Unity integration. I set it up so that a screenshot was taken when the user finished drawing their shape. I didn’t hook up Watson at this point in Unity but instead tried sending the screenshots to Watson via the web as this was quicker for me to test out. There didn’t seem to be a specific shape recognition model, so the results I was getting back weren’t great. 
+Recognising the shapes proved to be more challenging. I had no idea where to start with this so my tutor suggested I looked at [IBM Watson](https://www.ibm.com/watson), this made sense as I had previously used other image recognition services for web projects and it has Unity integration. I set it up so that a screenshot was taken when the user finished drawing their shape. I didn’t hook up Watson at this point in Unity but instead tried sending the screenshots to Watson via the web as this was quicker for me to test out. There didn’t seem to be a specific shape recognition model, so the results I was getting back weren’t great.
 
 <p data-pullquote="I was getting too far from my project brief">Looking into whether you could teach the model I started to think I was getting too far from my project brief. I also grew concerned that sending images to Watson would place a requirement on having a web connection, and that latency or network issues would ruin the experience.</p>
 
-Instead I did some reading on gesture recognition and came across the [$P](http://depts.washington.edu/ilab/proj/dollar/pdollar.html) project that recognised gestures and could also be taught to recognise specific gestures.
+Instead I did some reading on gesture recognition and came across the [$P](https://depts.washington.edu/ilab/proj/dollar/pdollar.html) project that recognised gestures and could also be taught to recognise specific gestures.
 
 ![$P gestures](/assets/virtual-reality-remix-dollar-p.jpg)
-
 
 Luckily someone had ported \$P to a [Unity asset](https://assetstore.unity.com/packages/tools/input-management/pdollar-point-cloud-gesture-recognizer-21660). After integrating the asset I had to remove its inbuilt gestures and teach it various gestures for the three shapes I had chose (triangle, square, circle). After a lot of toing and froing I finally got the shape gesture recognition to work!
 
@@ -83,7 +82,7 @@ Luckily someone had ported \$P to a [Unity asset](https://assetstore.unity.com/p
 
 ## Getting shape recognition to control audio tracks
 
-The next task was to get the shape recognition to turn audio tracks on/off. For the audio I’d chosen to use the [Jacques Greene](https://jacquesgreene.com/) track "To Say" as it fitted with both the aesthetic and goal of getting user to move, also the [stems](<(https://jacquesgreene.com/stems)>) (separate audio tracks) were available under a “MAKE WHATEVER YOU WANT” license. As I was only going to have three shapes I had to mix down several of the stems into 3 groups of audio tracks (oherwise the audio was too sparse and sometimes silent).
+The next task was to get the shape recognition to turn audio tracks on/off. For the audio I’d chosen to use the [Jacques Greene](https://jacquesgreene.com/) track "To Say" as it fitted with both the aesthetic and goal of getting user to move, also the stems (separate audio tracks) were available under a “MAKE WHATEVER YOU WANT” license. As I was only going to have three shapes I had to mix down several of the stems into 3 groups of audio tracks (oherwise the audio was too sparse and sometimes silent).
 
 I used Unity's 3D sound to position the audio in different places within the environment. This means the sound changes as the user moves their head, you can see this in the video at the top of this page when wearing headphones.
 
@@ -94,7 +93,6 @@ Having got the mechanic sorted it was time to have some fun with the visuals. I 
 Adding feedback is important to let the user know what is or isn't happening. I added visual (multiple versions of the shape fade away into background) and audio feedback (short audio clips, different for each shape) when the user successfully draws a shape - encouraging them to repeat the action. There is also visual feedback that an audio track is on shown by the big shape pulsing to the beat of the audio. The game dev talk ["Juice It Or Lose It"](https://www.youtube.com/watch?v=Fy0aCDmgnxg) by Martin Jonasson and Petri Purho influenced this.
 
 To add visual interest when an audio track is playing I ended up with using two [particle systems](https://docs.unity3d.com/ScriptReference/ParticleSystem.html) and a [trail renderer](https://docs.unity3d.com/Manual/class-TrailRenderer.html). I styled the first particle system using “Starfield” to look like bouncing ping-pong balls, I thought this mirrored the “pop” sound in the audio track.
-
 
 <video muted loop autoplay>
     <source src="/assets/virtual-reality-remix-starfield.mp4" type="video/mp4">

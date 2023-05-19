@@ -11,7 +11,7 @@ I recently had the requirement to swap out all occurrences of the CSS media quer
 
 ### Why would you need to mess with 'max-device-width'?
 
-My scenario was needing to give an indication of how HTML email content would display on mobile devices. Using IFrame-based tests (e.g. [Matt Kersley's Responsive Design Tests](http://mattkersley.com/responsive/)) worked well in most instances, but many responsive email designs use CSS media queries that included `max-device-width`. As my IFrames were being viewed on desktop devices with high resolution displays these rules were not being triggered. As it isn't possible to fake `max-device-width` the only alternative was switch it for `max-width`.
+My scenario was needing to give an indication of how HTML email content would display on mobile devices. Using IFrame-based tests (e.g. [Matt Kersley's Responsive Design Tests](https://mattkersley.com/responsive/)) worked well in most instances, but many responsive email designs use CSS media queries that included `max-device-width`. As my IFrames were being viewed on desktop devices with high resolution displays these rules were not being triggered. As it isn't possible to fake `max-device-width` the only alternative was switch it for `max-width`.
 
 ### Getting hold of the media queries
 
@@ -19,28 +19,28 @@ First we need to get hold of all the stylesheets that the document has loaded an
 
 ```javascript
 function getCSSMediaRules(doc) {
-  var stylesheets = doc.styleSheets
-  var mediaRules = new Array()
+  var stylesheets = doc.styleSheets;
+  var mediaRules = new Array();
 
   // loop through all CSS files
   for (var i in stylesheets) {
     if (stylesheets.hasOwnProperty(i)) {
-      var stylesheets = stylesheets[i]
-      var stylesheetRules = stylesheets.cssRules
+      var stylesheets = stylesheets[i];
+      var stylesheetRules = stylesheets.cssRules;
       // for every CSS file, loop through all CSS rules
       for (var i in stylesheetRules) {
         if (stylesheetRules.hasOwnProperty(i)) {
-          var stylesheetRule = stylesheetRules[i]
+          var stylesheetRule = stylesheetRules[i];
           // check CSS rule is a type 4 'MEDIA_RULE'
           if (stylesheetRule.type == 4) {
-            mediaRules.push(stylesheetRule)
+            mediaRules.push(stylesheetRule);
           }
         }
       }
     }
   }
 
-  return mediaRules
+  return mediaRules;
 }
 ```
 
@@ -51,9 +51,9 @@ The DOM only provides methods to add and remove CSS media rules. In my instance 
 ```javascript
 function replaceMaxDeviceWidth(rule) {
   rule.media.mediaText = rule.media.mediaText.replace(
-    'max-device-width',
-    'max-width'
-  )
+    "max-device-width",
+    "max-width"
+  );
 }
 ```
 

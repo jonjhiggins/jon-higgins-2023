@@ -1,7 +1,7 @@
 import { SPACING_RAW } from "~/settings/spacing";
 import { rem } from "~/utils";
 
-// http://gridcalculator.dk/#/1248/5/48/48
+// https://gridcalculator.dk/#/1248/5/48/48
 
 const GRID_GUTTER = {
   S: SPACING_RAW[3],

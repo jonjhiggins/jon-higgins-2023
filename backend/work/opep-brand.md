@@ -6,7 +6,7 @@ class: opep-brand
 date: 2013-05-01
 type: brand
 skills: [brand, design]
-contentUrl: http://www.opep.co.uk
+contentUrl: https://www.opep.co.uk
 images: [article-image.jpg]
 description: Create brand for teacher collective aiming for outstanding PE
 archive: true
@@ -20,7 +20,7 @@ OPEP (Outstanding Physical Education Preparation) are a non-profit teachers' org
 
 #### The solution
 
-Working together with OPEP we created a bold, strong brand in terms of character and personality using [paradoxical pairs](http://www.jonhiggins.co.uk/words/brand-paradox.html).
+Working together with OPEP we created a bold, strong brand in terms of character and personality using [paradoxical pairs](https://www.jonhiggins.co.uk/words/brand-paradox.html).
 
 From this I designed a visual style based around the brand's "expert-active" pairing, noticably expressed through the serif/sans type combination. Bright, bold, optimistic colours reflected OPEP's community-minded outlook while the logo was based around the themes of collaboration central to OPEP's identity.
 

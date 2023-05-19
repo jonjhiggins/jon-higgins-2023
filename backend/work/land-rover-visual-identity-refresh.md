@@ -18,7 +18,7 @@ heroImages:
   - image: /assets/work-hero--land-rover-visual-identity--after.jpg
     caption: After
     alt: Land Rover website after
-contentUrl: http://www.landrover.co.uk
+contentUrl: https://www.landrover.co.uk
 description: Applying Land Rover's refreshed identity to every part of their global marketing websites.
 archive: false
 ---
@@ -33,7 +33,7 @@ Also, there were visual inconsistencies through out the site which broke VI/bran
 
 As part of the Land Rover Agile team I collaborated with other developers and designers to implement the new VI. This included new colour palettes, fonts and grids. We worked hard on visual consistency, particularly on grids and typography, with minute attention to detail.
 
-My colleague [Pete Williams](http://www.petewritescode.com) and I re-worked the SASS codebase to make it more modular and documented the new VI guidelines for future maintainability.
+My colleague [Pete Williams](https://www.petewritescode.com) and I re-worked the SASS codebase to make it more modular and documented the new VI guidelines for future maintainability.
 
 #### Improving typographic and layout consistency
 
@@ -45,7 +45,7 @@ My colleague [Pete Williams](http://www.petewritescode.com) and I re-worked the 
 
 - SASS: replaced manually inputted values with variables for consistency
 - SASS: pulled out shared styles from components and moved to partials for consistency
-- Documented new VI guidelines in [Assemble](http://assemble.io)-based styleguide
+- Documented new VI guidelines in [Assemble](https://assemble.io)-based styleguide
 
 #### Improving content
 
