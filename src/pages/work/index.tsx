@@ -12,7 +12,9 @@ export default function Section({
     allMarkdownRemark: { edges: items },
   },
 }: PageProps<Queries.GetWorkPostsQuery>) {
-  const itemsFiltered = items.filter((item) => !item.node.frontmatter.archive);
+  const itemsFiltered = items.filter(
+    (item) => !item?.node?.frontmatter?.archive
+  );
   return (
     <SectionTemplate
       items={itemsFiltered}
