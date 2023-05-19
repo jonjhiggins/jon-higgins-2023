@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
-import PropTypes from "prop-types";
 
 import { BREAKPOINTS } from "~/settings/breakpoints";
 import { GRID_GUTTER_REM } from "~/settings/grid";
 
-const ArticleContent = styled("div")`
+const ArticleContent = styled("div")<{ centreGrid?: boolean }>`
   display: inherit;
   grid-template-columns: inherit;
   grid-column-gap: inherit;
@@ -37,10 +36,6 @@ const ArticleContent = styled("div")`
     }
   }
 `;
-
-ArticleContent.propTypes = {
-  centreGrid: PropTypes.bool,
-};
 
 ArticleContent.defaultProps = {
   centreGrid: true,

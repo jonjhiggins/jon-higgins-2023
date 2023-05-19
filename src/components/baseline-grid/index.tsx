@@ -7,7 +7,11 @@ import { BASELINE_REM } from "~/settings/typography";
  * Add a baseline grid to document or an individual component
  * @type {ReactElement}
  */
-const BaselineGrid = styled("div")(
+const BaselineGrid = styled("div")<{
+  lines: number;
+  colour: string;
+  top: number;
+}>(
   {
     position: "absolute",
     height: "100%",

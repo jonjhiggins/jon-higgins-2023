@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import PropTypes from "prop-types";
 
 import { BREAKPOINTS } from "~/settings/breakpoints";
 import { GRID_GUTTER, GRID_GUTTER_REM } from "~/settings/grid";
@@ -14,7 +13,11 @@ const columnTemplates = {
   [article-main-end] 1fr [article-full-end]`,
 };
 
-const Article = styled("div")<{ hasMedia: boolean }>`
+const Article = styled("div")<{
+  hasMedia: boolean;
+  border: boolean;
+  fullWidthLargeBreakpoint: boolean;
+}>`
   border: ${(props) =>
     props.border ? `${rem(2)} solid ${COLOURS.PRIMARY}` : null};
   padding-top: ${(props) =>
@@ -48,12 +51,6 @@ const Article = styled("div")<{ hasMedia: boolean }>`
         : columnTemplates.fourCol};
   }
 `;
-
-Article.propTypes = {
-  border: PropTypes.bool,
-  hasMedia: PropTypes.bool,
-  fullWidthLargeBreakpoint: PropTypes.bool,
-};
 
 Article.defaultProps = {
   border: true,
