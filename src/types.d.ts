@@ -1,3 +1,7 @@
+declare module "*.png";
+declare module "*.woff2";
+declare module "*.jpg";
+
 type NonNullable<T> = T extends null | undefined ? never : T;
 
 type NonNullableBlogPostMarkdown = NonNullable<

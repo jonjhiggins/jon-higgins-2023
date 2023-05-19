@@ -20,11 +20,6 @@ import favicon from "~/images/favicon.png";
 // Source code highlighting CSS
 require("prismjs/themes/prism-tomorrow.css");
 
-interface Props {
-  children: React.ReactNode;
-  location: unknown;
-}
-
 interface LayoutState {
   breakpointSmall: boolean;
   headerFixed: boolean;
@@ -113,13 +108,11 @@ export default function Layout({ children, location }: PageProps) {
   function handleMenuClick() {}
   return (
     <Wrapper headerFixed={state.headerFixed}>
-      <Helmet
-        title={siteData.site.siteMetadata.title}
-        link={[{ rel: "shortcut icon", type: "image/png", href: `${favicon}` }]}
-      >
+      <Helmet title={siteData.site.siteMetadata.title}>
         <html lang="en" />
         <link rel="preload" href={interUI} as="font" type="font/woff2" />
         <link rel="preload" href={interUIBold} as="font" type="font/woff2" />
+        <link rel="shortcut icon" type="image/png" href={favicon}></link>
       </Helmet>
       <Typography />
       {hasGrid && <BaselineGrid />}
