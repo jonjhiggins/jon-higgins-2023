@@ -6,14 +6,16 @@ class: land-rover-visual-identity-refresh
 date: 2015-03-01
 type: web
 skills: [build]
-images: [work-hero--land-rover-visual-identity@2x.png, work-hero--land-rover-visual-identity--large.png]
+images:
+  [
+    work-hero--land-rover-visual-identity@2x.png,
+    work-hero--land-rover-visual-identity--large.png,
+  ]
 heroImages:
-  -
-    image: work-hero--land-rover-visual-identity--before.jpg
+  - image: /assets/work-hero--land-rover-visual-identity--before.jpg
     caption: Before
     alt: Land Rover website before
-  -
-    image: work-hero--land-rover-visual-identity--after.jpg
+  - image: /assets/work-hero--land-rover-visual-identity--after.jpg
     caption: After
     alt: Land Rover website after
 contentUrl: http://www.landrover.co.uk
@@ -35,16 +37,16 @@ My colleague [Pete Williams](http://www.petewritescode.com) and I re-worked the 
 
 #### Improving typographic and layout consistency
 
-* Contributed to both the design of and implementation of a baseline grid system based on the x-height of titles
-* Limited the range of font sizes used, with sets for different break points
-* Re-worked every component within the site to use uniform margins specified by the VI's grid system
+- Contributed to both the design of and implementation of a baseline grid system based on the x-height of titles
+- Limited the range of font sizes used, with sets for different break points
+- Re-worked every component within the site to use uniform margins specified by the VI's grid system
 
 #### Improving codebase
 
-* SASS: replaced manually inputted values with variables for consistency
-* SASS: pulled out shared styles from components and moved to partials for consistency
-* Documented new VI guidelines in [Assemble](http://assemble.io)-based styleguide
+- SASS: replaced manually inputted values with variables for consistency
+- SASS: pulled out shared styles from components and moved to partials for consistency
+- Documented new VI guidelines in [Assemble](http://assemble.io)-based styleguide
 
 #### Improving content
 
-* Worked with content authors to clean-up content that broke VI guidelines. Introduced new components / layout options based on author's feedback.
+- Worked with content authors to clean-up content that broke VI guidelines. Introduced new components / layout options based on author's feedback.

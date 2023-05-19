@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 
 import ArticleHeaderImagesScroll from "~/components/article-header-images-scroll";
@@ -30,11 +29,17 @@ const ArticleHeaderMediaWrapper = styled("div")`
   }
 `;
 
+interface Props {
+  heroImages: HeroImages;
+  videoPath?: string;
+  heroVideoAutoPlay: boolean;
+}
+
 export default function ArticleHeaderMedia({
   videoPath,
   heroImages,
   heroVideoAutoPlay,
-}) {
+}: Props) {
   return (
     <ArticleHeaderMediaWrapper>
       {videoPath && (
@@ -52,24 +57,13 @@ export default function ArticleHeaderMedia({
         </video>
       )}
       {/* Single image hero */}
-      {!videoPath && heroImages.length === 1 && (
+      {!videoPath && heroImages && heroImages.length === 1 && (
         <ArticleHeaderImage heroImages={heroImages} />
       )}
       {/* Double scrolling images hero */}
-      {!videoPath && heroImages.length > 1 && (
+      {!videoPath && heroImages && heroImages.length > 1 && (
         <ArticleHeaderImagesScroll heroImages={heroImages} />
       )}
     </ArticleHeaderMediaWrapper>
   );
 }
-
-ArticleHeaderMedia.propTypes = {
-  videoPath: PropTypes.string,
-  heroVideoAutoPlay: PropTypes.bool,
-  heroImages: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string,
-      caption: PropTypes.string,
-    })
-  ),
-};

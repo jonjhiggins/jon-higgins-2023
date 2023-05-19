@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { StaticQuery, graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 import Heading from "~/components/heading";
@@ -27,13 +25,20 @@ const Figure = styled("figure")`
   }
 `;
 
-export default function ArticleHeaderImages({ heroImages }) {
+interface Props {
+  heroImages: NonNullableHeroImages;
+}
+
+export default function ArticleHeaderImages({ heroImages }: Props) {
+  if (!heroImages?.[0]?.image?.childImageSharp) {
+    return null;
+  }
   return (
     <HeroImages>
       <Figure>
         <GatsbyImage
           image={heroImages[0].image.childImageSharp.gatsbyImageData}
-          alt={heroImages[0].alt}
+          alt={heroImages[0].alt || ""}
         />
         {heroImages[0].caption && (
           <Heading element={"figcaption"} size={1}>
@@ -44,13 +49,3 @@ export default function ArticleHeaderImages({ heroImages }) {
     </HeroImages>
   );
 }
-
-ArticleHeaderImages.propTypes = {
-  heroImages: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string,
-      caption: PropTypes.string,
-      alt: PropTypes.alt,
-    })
-  ),
-};

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
-import { graphql, useStaticQuery } from "gatsby";
 import { keyframes } from "@emotion/react";
 import { GatsbyImage } from "gatsby-plugin-image";
 
@@ -42,7 +41,7 @@ const a = keyframes`
 }
 `;
 
-const ImgHolder = styled("span")`
+const ImgHolder = styled("span")<{ delay: boolean }>`
   position: relative;
   padding-top: 168.75%;
   overflow: hidden;
@@ -59,46 +58,36 @@ const ImgHolder = styled("span")`
   }
 `;
 
-export default function ArticleHeaderImagesScroll({ heroImages }) {
-  const data = useStaticQuery(graphql`
-    query HeaderImages {
-      allImageSharp {
-        edges {
-          node {
-            gatsbyImageData(layout: FULL_WIDTH)
-            parent {
-              ... on File {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-  const images = data.allImageSharp.edges.filter((edge) =>
-    heroImages.find(
-      (heroImage) => heroImage.image === edge.node.fluid.originalName
-    )
-  );
-  if (!images) {
+interface Props {
+  heroImages: NonNullableHeroImages;
+}
+
+export default function ArticleHeaderImagesScroll({ heroImages }: Props) {
+  if (!heroImages?.[0]?.image?.childImageSharp?.gatsbyImageData) {
     return null;
   }
   return (
     <HeroImages>
-      {images.map((img, index) => (
-        <Figure key={index}>
-          <ImgHolder delay={index !== 0}>
-            <GatsbyImage
-              image={img.childImageSharp.gatsbyImageData}
-              alt={heroImages[index].alt}
-            />
-          </ImgHolder>
-          <Heading element={"figcaption"} size={1}>
-            {heroImages[index].caption}
-          </Heading>
-        </Figure>
-      ))}
+      {heroImages.map((heroImage, index) => {
+        if (!heroImage?.image?.childImageSharp?.gatsbyImageData) {
+          return false;
+        }
+        return (
+          <Figure key={index}>
+            <ImgHolder delay={index !== 0}>
+              <GatsbyImage
+                image={heroImage?.image?.childImageSharp?.gatsbyImageData}
+                alt={heroImage.alt || ""}
+              />
+            </ImgHolder>
+            {heroImage.caption ? (
+              <Heading element={"figcaption"} size={1}>
+                {heroImage.caption}
+              </Heading>
+            ) : null}
+          </Figure>
+        );
+      })}
     </HeroImages>
   );
 }
