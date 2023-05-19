@@ -31,11 +31,11 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
   const videoPath =
     heroVideos && heroVideos.length && heroVideos[0] !== ""
       ? `${mediaPath}${heroVideos[0]}`
-      : null;
+      : undefined;
   const hasMedia = videoPath !== null || (heroImages && heroImages.length > 0);
   return (
     <PageWrapper>
-      <SEO title={title} />
+      <SEO title={title || ""} />
       <HeadingBackground>{title}</HeadingBackground>
       <ArticleWrapper>
         <Article hasMedia={!!hasMedia}>
@@ -43,7 +43,7 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
             {(videoPath || heroImages) && (
               <ArticleHeaderMedia
                 videoPath={videoPath}
-                heroVideoAutoPlay={heroVideoAutoPlay}
+                heroVideoAutoPlay={!!heroVideoAutoPlay}
                 heroImages={heroImages}
               />
             )}
@@ -63,7 +63,7 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
                 {description}
               </Heading>
             )}
-            <BodyText dangerouslySetInnerHTML={{ __html: html }} />
+            {html && <BodyText dangerouslySetInnerHTML={{ __html: html }} />}
             {contentUrl && (
               <span>
                 <CTA href={contentUrl}>View work</CTA>
