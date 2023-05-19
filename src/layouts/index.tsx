@@ -14,7 +14,7 @@ import BaselineGrid from "~/components/baseline-grid";
 import SiteHeader from "~/components/site-header";
 import Transition from "~/components/transition";
 import Typography from "~/components/typography";
-import { useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql, PageProps } from "gatsby";
 import favicon from "~/images/favicon.png";
 
 // Source code highlighting CSS
@@ -83,7 +83,7 @@ const mediaQueryList =
     ? null
     : window.matchMedia(`(min-width: ${BREAKPOINTS_RAW.M}px)`);
 
-export default function Layout({ children }: Props) {
+export default function Layout({ children, location }: PageProps) {
   const siteData = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -104,7 +104,6 @@ export default function Layout({ children }: Props) {
     headerFoldUp: false,
     navOpen: false,
   });
-  const location = window.location;
   const search = location ? location.search : null;
   const params = search ? new URLSearchParams(search) : null;
   const grid = params ? params.get("grid") : false;

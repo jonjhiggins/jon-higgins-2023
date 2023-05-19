@@ -8,9 +8,9 @@ import { BASELINE_REM } from "~/settings/typography";
  * @type {ReactElement}
  */
 const BaselineGrid = styled("div")<{
-  lines: number;
-  colour: string;
-  top: number;
+  lines?: number;
+  colour?: string;
+  top?: number;
 }>(
   {
     position: "absolute",
