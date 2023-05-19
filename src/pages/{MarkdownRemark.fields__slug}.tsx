@@ -32,7 +32,7 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
     heroVideos && heroVideos.length && heroVideos[0] !== ""
       ? `${mediaPath}${heroVideos[0]}`
       : undefined;
-  const hasMedia = videoPath !== null || (heroImages && heroImages.length > 0);
+  const hasMedia = !!videoPath || (heroImages && heroImages.length > 0);
   return (
     <PageWrapper>
       <SEO title={title || ""} />

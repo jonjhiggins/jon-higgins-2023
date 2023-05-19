@@ -14,9 +14,9 @@ const columnTemplates = {
 };
 
 const Article = styled("div")<{
-  hasMedia: boolean;
-  border: boolean;
-  fullWidthLargeBreakpoint: boolean;
+  hasMedia?: boolean;
+  border?: boolean;
+  fullWidthLargeBreakpoint?: boolean;
 }>`
   border: ${(props) =>
     props.border ? `${rem(2)} solid ${COLOURS.PRIMARY}` : null};
