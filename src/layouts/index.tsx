@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "what-input";
 import "url-search-params-polyfill";
 import interUI from "~/fonts/inter-ui-regular.woff2";
@@ -103,100 +103,117 @@ export default function Layout({ children, location }: PageProps) {
     navOpen: false,
   });
 
+  /**
+   * Fix/unfix site header, fold up/down site header when fixed
+   */
+  const fixUnFixHeader = (headerFixed: boolean, scrollingUp: boolean) => {
+    // Debounce if waiting for requestAnimationFrame
+    memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, false);
+
+    setState((state) => ({
+      ...state,
+      ...{
+        headerFixed: state.navOpen ? state.headerFixed : headerFixed,
+        headerFoldUp: state.navOpen
+          ? state.headerFoldUp
+          : headerFixed && scrollingUp
+          ? false
+          : headerFixed,
+      },
+    }));
+  };
+
+  const handleScroll = useCallback(() => {
+    const { scrollY } = window;
+    const scrollingUp =
+      scrollY < memoryStore.get(MEMORY_STORE_KEYS.LAST_SCROLL_Y);
+    memoryStore.set(MEMORY_STORE_KEYS.LAST_SCROLL_Y, scrollY);
+
+    if (memoryStore.get(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME)) {
+      return;
+    }
+
+    const scrollTriggerPoint = state.breakpointSmall
+      ? HEADER_HEIGHT_S
+      : HEADER_HEIGHT_M;
+    const headerFixed = scrollY > scrollTriggerPoint;
+    window.requestAnimationFrame(
+      fixUnFixHeader.bind(null, headerFixed, scrollingUp)
+    );
+
+    memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, true);
+  }, [state.breakpointSmall]);
+
   function handleBreakpointChange(e: MediaQueryListEvent) {
     const isSmallScreen = !e.matches;
     setState((state) => ({
       ...state,
-      ...{ breakpointSmall: isSmallScreen },
+      ...{
+        breakpointSmall: isSmallScreen,
+        // Close the small screen menu when switching to large screen
+        navOpen: !isSmallScreen ? false : state.navOpen,
+      },
     }));
-    // Close the small screen menu when switching to large screen
-    if (!isSmallScreen) {
-      setState((state) => ({
-        ...state,
-        ...{ navOpen: false },
-      }));
-    }
   }
 
+  /**
+   * Set initial breakpoint value
+   */
   useEffect(() => {
-    console.log("mount");
     if (typeof window === "undefined" || !mediaQueryList) {
       return;
     }
-
-    /**
-     * Fix/unfix site header, fold up/down site header when fixed
-     */
-    function fixUnFixHeader(headerFixed: boolean, scrollingUp: boolean) {
-      // Debounce if waiting for requestAnimationFrame
-      memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, false);
-
-      if (state.navOpen) {
-        return;
-      }
-
-      setState((state) => ({
-        ...state,
-        ...{
-          headerFixed,
-          headerFoldUp: headerFixed,
-        },
-      }));
-
-      if (headerFixed && scrollingUp) {
-        setState((state) => ({
-          ...state,
-          ...{ headerFoldUp: false },
-        }));
-      }
-    }
-
-    function handleScroll() {
-      console.log("handle scroll");
-      const { scrollY } = window;
-      const scrollingUp =
-        scrollY < memoryStore.get(MEMORY_STORE_KEYS.LAST_SCROLL_Y);
-      memoryStore.set(MEMORY_STORE_KEYS.LAST_SCROLL_Y, scrollY);
-
-      if (memoryStore.get(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME)) {
-        return;
-      }
-
-      const scrollTriggerPoint = state.breakpointSmall
-        ? HEADER_HEIGHT_S
-        : HEADER_HEIGHT_M;
-      const headerFixed = scrollY > scrollTriggerPoint;
-      window.requestAnimationFrame(
-        fixUnFixHeader.bind(null, headerFixed, scrollingUp)
-      );
-
-      memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, true);
-    }
-
-    // Set memory store inital values
-    memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, false);
-    memoryStore.set(MEMORY_STORE_KEYS.LAST_SCROLL_Y, 0);
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Set up media query listeners (header different height on big screen)
     setState((state) => ({
       ...state,
       ...{ breakpointSmall: !mediaQueryList.matches },
     }));
+  }, []);
+
+  /**
+   * Set initial memory store values
+   */
+  useEffect(() => {
+    memoryStore.set(MEMORY_STORE_KEYS.WAITING_FOR_ANIMATION_FRAME, false);
+    memoryStore.set(MEMORY_STORE_KEYS.LAST_SCROLL_Y, 0);
+  }, []);
+
+  /**
+   * Add breakpoint handler
+   */
+  useEffect(() => {
+    if (typeof window === "undefined" || !mediaQueryList) {
+      return;
+    }
+    // Set up media query listeners (header different height on big screen)
     mediaQueryList.addEventListener("change", handleBreakpointChange);
+    return function () {
+      // No window in server rendered version
+      if (typeof window === "undefined" || !mediaQueryList) {
+        return;
+      }
+      mediaQueryList.removeEventListener("change", handleBreakpointChange);
+    };
+  }, []);
+
+  /**
+   * Add scroll  handlers
+   */
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    window.addEventListener("scroll", handleScroll);
 
     // Clean-up on unmount component
     return function () {
-      console.log("unmount");
       // No window in server rendered version
       if (typeof window === "undefined") {
         return;
       }
       window.removeEventListener("scroll", handleScroll);
-      mediaQueryList.removeEventListener("change", handleBreakpointChange);
     };
-  }, [state.breakpointSmall, state.navOpen]);
+  }, [handleScroll]);
 
   /**
    * Toggle small screen menu
