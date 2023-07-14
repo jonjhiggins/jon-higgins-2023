@@ -19,6 +19,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mdx-js/react": "^2.3.0",
+    "animejs": "^3.2.1",
     "gatsby": "^5.6.1",
     "gatsby-plugin-emotion": "^8.7.0",
     "gatsby-plugin-image": "^3.7.0",
