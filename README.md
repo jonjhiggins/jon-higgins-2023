@@ -10,6 +10,12 @@ Portfolio site. Designed and built [back in 2019](https://github.com/jonjhiggins
 
 If you get an `ENAMETOOLONG: name too long` error when developing or building, try removing `public` directory
 
+## Deployment
+
+`npm run deploy`
+
+Deploys via rsync. Requires a .env file with correct values, check .env.example for values that need to exist.
+
 ## Technologies
 
 - [Gatsby](https://www.gatsbyjs.org), using a [React](https://reactjs.org/) front-end and [GraphQL](https://graphql.org/) backend. Articles are written in [Markdown](https://daringfireball.net/projects/markdown/).
