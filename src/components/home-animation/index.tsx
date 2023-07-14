@@ -271,7 +271,6 @@ export default class HomeAnimation extends React.Component {
   componentDidMount() {
     this.timeline = anime.timeline({
       complete: () => {
-        console.log("complete");
         this.generateAndSetBlockItems();
         this.timeline.restart();
       },
