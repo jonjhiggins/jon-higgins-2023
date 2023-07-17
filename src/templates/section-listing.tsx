@@ -66,7 +66,6 @@ export default function SectionListing({ heading, items, footerCTA }: Props) {
                 link={fields.slug}
                 visible={true}
                 frontmatter={frontmatter}
-                gridWidth={2}
               />
             );
           })}

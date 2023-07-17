@@ -1,5 +1,4 @@
 import React from "react";
-import { navigate } from "gatsby";
 import hexRgb from "hex-rgb";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
@@ -11,6 +10,12 @@ import { BREAKPOINTS } from "~/settings/breakpoints";
 import COLOURS from "~/settings/colours";
 import { rem } from "~/utils";
 
+interface Props {
+  className?: string;
+  link: string;
+  frontmatter: Queries.GetSectionPostsFragment["edges"][0]["node"]["frontmatter"];
+}
+
 const PRIMARY_RGB = hexRgb(COLOURS.PRIMARY, { format: "array" });
 PRIMARY_RGB.pop();
 
@@ -19,10 +24,9 @@ const LinkBlockInner = styled("li")`
   margin: 0 0 ${rem(BASELINE * 2)};
   border: ${rem(2)} solid ${COLOURS.PRIMARY};
   position: relative;
-  opacity: ${(props) => (props.visible || props.transitioning ? 1 : 0)};
   transition: opacity 400ms ease-out;
   ${BREAKPOINTS.M_MIN} {
-    grid-column: span ${(props) => props.gridWidth};
+    grid-column: span 2;
   }
   & > a {
     color: ${COLOURS.GREY_1};
@@ -36,53 +40,32 @@ const LinkBlockInner = styled("li")`
   }
 `;
 
-export default class LinkBlock extends React.Component {
-  constructor({ className }) {
-    super();
-    this.handleClickBound = this.handleClick.bind(this);
-    this.state = {
-      transitioning: false,
-    };
-    this.className = className;
-  }
-  // Using JS for when animating
-  handleClick(e) {
-    e.preventDefault();
-    const url = e.currentTarget.getAttribute("href");
-    navigate(url);
-  }
-  render() {
-    return (
-      <LinkBlockInner
-        className={this.className}
-        visible={this.props.visible}
-        gridWidth={this.props.gridWidth}
-        transitioning={this.state.transitioning}
-      >
-        <a href={this.props.link} onClick={this.handleClickBound}>
-          <Heading
-            element={"time"}
-            size={1}
-            marginBottomS={0.25}
-            marginBottomM={0.5}
-            colour={COLOURS.GREY_2}
-          >
-            {this.props.frontmatter.date}
-          </Heading>
-          <Heading
-            element={"h3"}
-            sizeS={2}
-            sizeM={3}
-            marginBottomS={0.25}
-            marginBottomM={0.5}
-          >
-            {this.props.frontmatter.title}
-          </Heading>
-          <BodyText>{this.props.frontmatter.description}</BodyText>
-        </a>
-      </LinkBlockInner>
-    );
-  }
+export default function LinkBlock({ className, link, frontmatter }: Props) {
+  return (
+    <LinkBlockInner className={className}>
+      <a href={link}>
+        <Heading
+          element={"time"}
+          size={1}
+          marginBottomS={0.25}
+          marginBottomM={0.5}
+          colour={COLOURS.GREY_2}
+        >
+          {frontmatter ? frontmatter.date : ""}
+        </Heading>
+        <Heading
+          element={"h3"}
+          sizeS={2}
+          sizeM={3}
+          marginBottomS={0.25}
+          marginBottomM={0.5}
+        >
+          {frontmatter ? frontmatter.title : ""}
+        </Heading>
+        <BodyText>{frontmatter ? frontmatter.description : ""}</BodyText>
+      </a>
+    </LinkBlockInner>
+  );
 }
 
 LinkBlock.propTypes = {
