@@ -28,6 +28,7 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    `gatsby-plugin-sitemap`,
     "gatsby-plugin-emotion",
     "gatsby-plugin-image",
     "gatsby-plugin-layout",
