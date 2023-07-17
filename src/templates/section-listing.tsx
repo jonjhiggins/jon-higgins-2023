@@ -13,9 +13,16 @@ import PageWrapper from "~/components/page-wrapper";
 import SEO from "~/components/seo";
 
 import { BASELINE } from "~/settings/typography";
-import { BREAKPOINTS } from "~/settings/breakpoints";
 import { rem } from "~/utils";
-import COLOURS from "~/settings/colours";
+
+interface Props {
+  heading?: string;
+  items: Queries.GetSectionPostsFragment["edges"];
+  footerCTA?: {
+    link: string;
+    text: string;
+  };
+}
 
 const LinkBlocks = styled("ul")`
   list-style: none;
@@ -27,79 +34,47 @@ const LinkBlocks = styled("ul")`
   grid-gap: inherit;
 `;
 
-const LinkBlockSpacer = styled("li")`
-  list-style: none;
-  margin: 0 0 ${rem(BASELINE * 2)};
-  padding: 0;
-  display: none;
-  ${BREAKPOINTS.M_MIN} {
-    display: block;
-    border: ${rem(2)} solid ${COLOURS.GREY_BORDER};
-    grid-column: span ${(props) => props.gridWidth};
-  }
-`;
-
 const Footer = styled("footer")`
   margin-top: ${rem(BASELINE * 2)};
 `;
 
-const Aux = (props) => props.children;
-
-export default class Template extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      linkBlocksVisible: true,
-    };
-  }
-  render() {
-    return (
-      <PageWrapper>
-        <SEO title={this.props.heading} />
-        <HeadingBackground>{this.props.heading}</HeadingBackground>
-        <ArticleWrapper>
-          <Article border={false} fullWidthLargeBreakpoint={true}>
-            <ArticleContent centreGrid={false}>
-              <LinkBlocks>
-                {this.props.items.map(({ node }, index) => {
-                  const { frontmatter, fields } = node;
-                  return (
-                    <Aux key={index}>
-                      <LinkBlock
-                        key={index}
-                        visible={this.state.linkBlocksVisible}
-                        link={fields.slug}
-                        frontmatter={frontmatter}
-                        handleClick={this.handleClickBound}
-                        gridWidth={(() => {
-                          return (index + 1) % 2 === 0 ? 4 : 3;
-                        })()}
-                      />
-                      <LinkBlockSpacer
-                        gridWidth={(() => {
-                          return (index + 1) % 2 === 0 ? 1 : 2;
-                        })()}
-                      />
-                    </Aux>
-                  );
-                })}
-              </LinkBlocks>
-              {this.props.footerCTA && (
-                <Footer>
-                  <CTA to={this.props.footerCTA.link}>
-                    {this.props.footerCTA.text}
-                  </CTA>
-                </Footer>
-              )}
-            </ArticleContent>
-          </Article>
-        </ArticleWrapper>
-      </PageWrapper>
-    );
-  }
+export default function SectionListing({ heading, items, footerCTA }: Props) {
+  return (
+    <PageWrapper>
+      <SEO title={heading} />
+      <HeadingBackground>{heading}</HeadingBackground>
+      <ArticleWrapper>
+        <Article border={false} fullWidthLargeBreakpoint={true}>
+          <ArticleContent centreGrid={false}>
+            <LinkBlocks>
+              {items.map(({ node }, index) => {
+                const { frontmatter, fields } = node;
+                return (
+                  <LinkBlock
+                    key={index}
+                    link={fields.slug}
+                    visible={true}
+                    frontmatter={frontmatter}
+                    gridWidth={(() => {
+                      return (index + 1) % 2 === 0 ? 4 : 3;
+                    })()}
+                  />
+                );
+              })}
+            </LinkBlocks>
+            {footerCTA && (
+              <Footer>
+                <CTA to={footerCTA.link}>{footerCTA.text}</CTA>
+              </Footer>
+            )}
+          </ArticleContent>
+        </Article>
+      </ArticleWrapper>
+    </PageWrapper>
+  );
 }
 
-Template.propTypes = {
+SectionListing.propTypes = {
   data: PropTypes.object,
   items: PropTypes.arrayOf(PropTypes.object),
   heading: PropTypes.string,
