@@ -3,9 +3,6 @@ import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 
-import Article from "~/components/article";
-import ArticleContent from "~/components/article-content";
-import ArticleWrapper from "~/components/article-wrapper";
 import CTA from "~/components/cta";
 import HeadingBackground from "~/components/heading-background";
 import LinkBlock from "~/components/link-block";
@@ -14,6 +11,8 @@ import SEO from "~/components/seo";
 
 import { BASELINE } from "~/settings/typography";
 import { rem } from "~/utils";
+import { BREAKPOINTS } from "~/settings/breakpoints";
+import { GRID_GUTTER_REM } from "~/settings/grid";
 
 interface Props {
   heading?: string;
@@ -24,11 +23,21 @@ interface Props {
   };
 }
 
+const SectionListingWrapper = styled("div")`
+  grid-gap: ${GRID_GUTTER_REM.S};
+  margin-bottom: ${GRID_GUTTER_REM.M};
+  ${BREAKPOINTS.M_MIN} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: ${GRID_GUTTER_REM.M};
+  }
+`;
+
 const LinkBlocks = styled("ul")`
   list-style: none;
   margin: 0;
   padding: 0;
-  grid-column: article-full;
+  grid-column: span 4;
   display: grid;
   grid-template-columns: inherit;
   grid-gap: inherit;
@@ -38,38 +47,36 @@ const Footer = styled("footer")`
   margin-top: ${rem(BASELINE * 2)};
 `;
 
+const LinkBlockStyled = styled(LinkBlock)`
+  margin-bottom: 0;
+`;
+
 export default function SectionListing({ heading, items, footerCTA }: Props) {
   return (
     <PageWrapper>
       <SEO title={heading} />
       <HeadingBackground>{heading}</HeadingBackground>
-      <ArticleWrapper>
-        <Article border={false} fullWidthLargeBreakpoint={true}>
-          <ArticleContent centreGrid={false}>
-            <LinkBlocks>
-              {items.map(({ node }, index) => {
-                const { frontmatter, fields } = node;
-                return (
-                  <LinkBlock
-                    key={index}
-                    link={fields.slug}
-                    visible={true}
-                    frontmatter={frontmatter}
-                    gridWidth={(() => {
-                      return (index + 1) % 2 === 0 ? 4 : 3;
-                    })()}
-                  />
-                );
-              })}
-            </LinkBlocks>
-            {footerCTA && (
-              <Footer>
-                <CTA to={footerCTA.link}>{footerCTA.text}</CTA>
-              </Footer>
-            )}
-          </ArticleContent>
-        </Article>
-      </ArticleWrapper>
+      <SectionListingWrapper>
+        <LinkBlocks>
+          {items.map(({ node }, index) => {
+            const { frontmatter, fields } = node;
+            return (
+              <LinkBlockStyled
+                key={index}
+                link={fields.slug}
+                visible={true}
+                frontmatter={frontmatter}
+                gridWidth={2}
+              />
+            );
+          })}
+        </LinkBlocks>
+        {footerCTA && (
+          <Footer>
+            <CTA to={footerCTA.link}>{footerCTA.text}</CTA>
+          </Footer>
+        )}
+      </SectionListingWrapper>
     </PageWrapper>
   );
 }

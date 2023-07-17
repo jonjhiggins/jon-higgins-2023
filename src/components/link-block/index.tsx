@@ -37,12 +37,13 @@ const LinkBlockInner = styled("li")`
 `;
 
 export default class LinkBlock extends React.Component {
-  constructor() {
+  constructor({ className }) {
     super();
     this.handleClickBound = this.handleClick.bind(this);
     this.state = {
       transitioning: false,
     };
+    this.className = className;
   }
   // Using JS for when animating
   handleClick(e) {
@@ -53,6 +54,7 @@ export default class LinkBlock extends React.Component {
   render() {
     return (
       <LinkBlockInner
+        className={this.className}
         visible={this.props.visible}
         gridWidth={this.props.gridWidth}
         transitioning={this.state.transitioning}
