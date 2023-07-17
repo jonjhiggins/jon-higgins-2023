@@ -1,8 +1,10 @@
 import type { GatsbyConfig } from "gatsby";
 
+const siteUrl = "https://jonhiggins.co.uk";
+
 const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: "https://jonhiggins.co.uk",
+    siteUrl,
     title: `Jon Higgins - VR/XR student and software engineer in Bristol, UK`,
     titleHTML:
       "Jon Higgins <span>VR/XR student and software engineer in Bristol,&nbsp;UK</span>",
@@ -112,6 +114,12 @@ const config: GatsbyConfig = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl,
       },
     },
   ],
