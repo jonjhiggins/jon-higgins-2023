@@ -5,10 +5,10 @@ const siteUrl = "https://jonhiggins.co.uk";
 const config: GatsbyConfig = {
   siteMetadata: {
     siteUrl,
-    title: `Jon Higgins - VR/XR student and software engineer in Bristol, UK`,
+    title: `Jon Higgins - VR/XR Unity developer in Bristol, UK`,
     titleHTML:
-      "Jon Higgins <span>VR/XR student and software engineer in Bristol,&nbsp;UK</span>",
-    description: `Portfolio website with articles on VR, XR and software engineering`,
+      "Jon Higgins <span>VR/XR Unity developer in Bristol,&nbsp;UK</span>",
+    description: `Portfolio website with articles on VR, XR, Unity and software engineering`,
     author: `Jon Higgins`,
     navigationLinks: [
       {
