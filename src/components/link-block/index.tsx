@@ -9,6 +9,7 @@ import { BASELINE } from "~/settings/typography";
 import { BREAKPOINTS } from "~/settings/breakpoints";
 import COLOURS from "~/settings/colours";
 import { rem } from "~/utils";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 interface Props {
   className?: string;
@@ -40,10 +41,25 @@ const LinkBlockInner = styled("li")`
   }
 `;
 
+const LinkBlockImage = styled(GatsbyImage)`
+  width: calc(100% + ${rem(BASELINE * 2)});
+  margin: -${rem(BASELINE)} -${rem(BASELINE)} ${rem(BASELINE)};
+  display: block;
+`;
+
 export default function LinkBlock({ className, link, frontmatter }: Props) {
   return (
     <LinkBlockInner className={className}>
       <a href={link}>
+        {frontmatter?.thumbnail?.[0]?.image?.childImageSharp ? (
+          <LinkBlockImage
+            objectPosition="top"
+            alt={frontmatter?.thumbnail?.[0]?.alt || ""}
+            image={
+              frontmatter?.thumbnail[0]?.image.childImageSharp.gatsbyImageData
+            }
+          />
+        ) : null}
         <Heading
           element={"time"}
           size={1}

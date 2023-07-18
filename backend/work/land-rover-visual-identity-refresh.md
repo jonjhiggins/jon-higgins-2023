@@ -11,6 +11,10 @@ images:
     work-hero--land-rover-visual-identity@2x.png,
     work-hero--land-rover-visual-identity--large.png,
   ]
+thumbnail:
+  - image: /assets/work-hero--land-rover-visual-identity--large.png
+    caption: ""
+    alt: Land Rover visual identity
 heroImages:
   - image: /assets/work-hero--land-rover-visual-identity--before.jpg
     caption: Before

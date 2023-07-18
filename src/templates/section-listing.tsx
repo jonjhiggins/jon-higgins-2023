@@ -113,6 +113,15 @@ export const pageQuery = graphql`
           title
           description
           archive
+          thumbnail {
+            image {
+              childImageSharp {
+                gatsbyImageData(height: 300, layout: CONSTRAINED)
+              }
+            }
+            caption
+            alt
+          }
         }
       }
     }

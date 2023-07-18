@@ -2,6 +2,10 @@
 date: 2015-09-01T00:00:00.000Z
 title: Land Rover interactive stories
 description: "Provide immersive, magazine-style articles for global premium brand."
+thumbnail:
+  - image: /assets/interactive-story-video-short.jpg
+    caption: ""
+    alt: Land Rover interactive stories
 heroVideos:
   - interactive-story-video-short
 heroVideoAutoPlay: true

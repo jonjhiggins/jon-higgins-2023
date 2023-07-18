@@ -7,6 +7,10 @@ date: 2018-09-22
 contentUrl: https://github.com/jonjhiggins/vr-remix
 description: Oculus Go experience built in Unity and C# during Academy XI Virtual Reality Design course
 heroVideos: [virtual-reality-remix]
+thumbnail:
+  - alt: VR visual remix
+    caption: ""
+    image: /assets/virtual-reality-remix-starfield.jpg
 archive: false
 ---
 

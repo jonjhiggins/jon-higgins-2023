@@ -4,6 +4,10 @@ title: Honda Australia AEM 6.4 website rebuild
 description: >-
   For 1.5 years I led the front-end development on the Honda Australia Cars
   website, whilst working at Leo Burnett Melbourne.
+thumbnail:
+  - alt: Honda Cars website
+    caption: ""
+    image: /assets/honda-australia-aem-6-4.jpg
 heroImages:
   - alt: Honda Cars website
     caption: ""
