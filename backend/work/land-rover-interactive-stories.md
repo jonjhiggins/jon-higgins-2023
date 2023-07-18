@@ -9,7 +9,7 @@ thumbnail:
 heroVideos:
   - interactive-story-video-short
 heroVideoAutoPlay: true
-archive: false
+archive: true
 hide: false
 category: work
 ---

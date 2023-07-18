@@ -24,7 +24,7 @@ heroImages:
     alt: Land Rover website after
 contentUrl: https://www.landrover.co.uk
 description: Applying Land Rover's refreshed identity to every part of their global marketing websites.
-archive: false
+archive: true
 ---
 
 ## The problem
