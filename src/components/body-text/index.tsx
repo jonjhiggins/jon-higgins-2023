@@ -9,8 +9,9 @@ import { interUIStyles, BASELINE } from "~/settings/typography";
 const dashedBorder = `${rem(2)} dashed ${COLOURS.PRIMARY}`;
 
 const BodyText = styled("div")({
-  "p, blockquote, video": {
+  "p, blockquote, video, figure": {
     margin: `0 0 ${rem(BASELINE * 2)}`,
+    padding: 0,
   },
   "ul, ol": {
     margin: `0 0 ${rem(BASELINE * 2)}`,
@@ -63,7 +64,7 @@ const BodyText = styled("div")({
   h4: {
     ...interUIStyles[2],
   },
-  "h5, h6": {
+  "h5, h6, caption": {
     ...interUIStyles[1],
   },
   ".gatsby-resp-image-link": {
