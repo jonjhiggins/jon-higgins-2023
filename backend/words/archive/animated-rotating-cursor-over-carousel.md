@@ -3,8 +3,9 @@ date: 2015-03-20T00:00:00.000Z
 title: Animated rotating cursor over carousel
 description: "Apply CSS3 transforms, transitions and animations to cursors."
 heroVideoAutoPlay: false
-archive: false
+
 hide: false
+archive: true
 category: words
 ---
 

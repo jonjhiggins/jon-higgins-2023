@@ -3,6 +3,7 @@ layout: post
 title: FormData only works in IE10 if you append name/value pairs
 description: Passing a form element to the FormData object in Internet Explorer 10.
 date: 2013-01-04
+archive: true
 category: words
 tags: [development, javascript, internet explorer, formdata]
 ---

@@ -3,6 +3,7 @@ layout: post
 title: Modifying 'max-device-width' with Javascript
 description: Changing CSS media queries on the client side.
 date: 2012-11-30
+archive: true
 category: words
 tags: [development, javascript, media queries, responsive]
 ---

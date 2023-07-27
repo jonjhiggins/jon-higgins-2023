@@ -3,6 +3,7 @@ layout: post
 title: "Going Serverless: host node for free"
 description: A frugal way to host node apps on Amazon AWS
 date: 2017-06-28
+archive: true
 category: words
 tags: [development, node.js, javascript, serverless]
 ---
@@ -79,16 +80,14 @@ functions:
 resources:
   Resources:
     ServerlessTestTable:
-      Type: 'AWS::DynamoDB::Table'
+      Type: "AWS::DynamoDB::Table"
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: id
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: id
+          - AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -98,24 +97,28 @@ resources:
 
 This configuration make look complicated, but there's not too much too it:
 
-* In `provider` we're hooking up to the DynamoDB table that will be our database, `iamRoleStatements` allow specific actions on the table that we'll reference in our Lambda functions.
-* In `functions` we list out the Lambda functions, `handler` references their path in the project (e.g. 'states/create.js' has a function "create"). In `events` we create the HTTP endpoint (e.g. '/states').
-* In `resources` we create or reference DynamoDB table "ServerlessTestTable" which will store our data.
+- In `provider` we're hooking up to the DynamoDB table that will be our database, `iamRoleStatements` allow specific actions on the table that we'll reference in our Lambda functions.
+- In `functions` we list out the Lambda functions, `handler` references their path in the project (e.g. 'states/create.js' has a function "create"). In `events` we create the HTTP endpoint (e.g. '/states').
+- In `resources` we create or reference DynamoDB table "ServerlessTestTable" which will store our data.
 
 5.  Create `states/create.js` and `states/list.js`. These will contain the functions that create and list states respectively.
 6.  Add the following content to `states/create.js`:
 
 ```javascript
-const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-dependencies
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.create = (event, context, callback) => {
   const uuid = Math.floor(Math.random() * 100000000).toString();
   const data = JSON.parse(event.body);
-  if (typeof data.state !== 'string' || typeof data.slogan !== 'string' || typeof data.capital !== 'string') {
-    console.error('Validation Failed');
-    callback(new Error('Couldn\'t create a new Australian state.'));
+  if (
+    typeof data.state !== "string" ||
+    typeof data.slogan !== "string" ||
+    typeof data.capital !== "string"
+  ) {
+    console.error("Validation Failed");
+    callback(new Error("Couldn't create a new Australian state."));
     return;
   }
 
@@ -134,7 +137,7 @@ module.exports.create = (event, context, callback) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(new Error('Couldn\'t create a new Australian state.'));
+      callback(new Error("Couldn't create a new Australian state."));
       return;
     }
 
@@ -151,7 +154,7 @@ module.exports.create = (event, context, callback) => {
 6.  Add the following content to `states/list.js`:
 
 ```javascript
-const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-dependencies
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const params = {
@@ -164,7 +167,7 @@ module.exports.list = (event, context, callback) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(new Error('Couldn\'t fetch the Australian states.'));
+      callback(new Error("Couldn't fetch the Australian states."));
       return;
     }
 

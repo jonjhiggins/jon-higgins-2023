@@ -12,7 +12,16 @@ export default function Section({
     allMarkdownRemark: { edges: items },
   },
 }: PageProps<Queries.GetWordsPostsQuery>) {
-  return <SectionTemplate items={items} heading={"Words"} />;
+  return (
+    <SectionTemplate
+      items={items}
+      heading={"Words"}
+      footerCTA={{
+        text: "Archive",
+        link: "/words/archive",
+      }}
+    />
+  );
 }
 
 Section.propTypes = {
@@ -26,7 +35,9 @@ Section.propTypes = {
 export const pageQuery = graphql`
   query GetWordsPosts {
     allMarkdownRemark(
-      filter: { frontmatter: { category: { eq: "words" } } }
+      filter: {
+        frontmatter: { category: { eq: "words" }, archive: { ne: true } }
+      }
       sort: { frontmatter: { date: DESC } }
     ) {
       ...GetSectionPosts

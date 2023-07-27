@@ -3,6 +3,7 @@ layout: post
 title: Brand personality paradox
 description: Organisations, markets, people and personalities are not one-dimensional... why should a brand strategy be worded in one-dimensional keywords?
 date: 2013-03-10
+archive: true
 category: words
 tags: [branding]
 ---

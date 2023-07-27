@@ -3,6 +3,7 @@ layout: post
 title: Continuous deployment to S3 with Bitbucket Pipelines
 description: Automatically update your S3 static-site every time you push to your Bitbucket repository.
 date: 2017-12-07
+archive: true
 category: words
 tags: [development, dev-ops, git]
 ---

@@ -3,6 +3,7 @@ layout: post
 title: Cancer Central hackathon
 description: "My first hackathon: Cancer Central in Bristol, June 2019."
 date: 2019-06-18
+archive: true
 category: words
 tags: [development, hackathon]
 ---

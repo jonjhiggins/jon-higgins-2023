@@ -5,8 +5,8 @@ description: >-
   Optimising the performance of a GreenSock-based continuous scaling animation
   using Paper.js and canvas.
 heroVideoAutoPlay: false
-archive: false
 hide: false
+archive: true
 category: words
 ---
 

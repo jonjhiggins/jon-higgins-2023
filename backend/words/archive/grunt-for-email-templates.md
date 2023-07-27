@@ -3,6 +3,7 @@ layout: post
 title: Using Grunt to build email templates
 description: Take the pain out of building email templates using Grunt Email Boilerplate.
 date: 2014-01-21
+archive: true
 category: words
 tags: [development, email design, javascript]
 ---
