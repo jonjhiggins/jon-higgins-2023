@@ -1,23 +1,19 @@
 import styled from "@emotion/styled";
 import React from "react";
-import anime from "animejs";
-
+import COLOURS from "~/settings/colours";
 import { GRID_GUTTER_REM } from "~/settings/grid";
 import { BASELINE_REM } from "~/settings/typography";
 import { rem } from "~/utils";
-import COLOURS from "~/settings/colours";
-import { BREAKPOINTS } from "~/settings/breakpoints";
 import ANIMATION from "~/settings/animation";
-import Heading from "~/components/heading";
+import { keyframes } from "@emotion/react";
 
 const PERSPECTIVE = BASELINE_REM * 60;
-const CUBE_HEIGHT = BASELINE_REM * 5;
+const CUBE_HEIGHT = BASELINE_REM * 50;
 const CUBE_DEPTH = CUBE_HEIGHT;
 const CUBE_Z = CUBE_HEIGHT / 2;
 
 /**
  * Calculate what transform is needed for each cube face
- * @param {object} props
  */
 const getCubeFaceTransform = (props) => {
   if (props.side) {
@@ -29,12 +25,6 @@ const getCubeFaceTransform = (props) => {
   return `rotateX(${props.index * 90}deg) translateZ(${CUBE_Z}rem)`;
 };
 
-/**
- * Rotate cube based on which side should be visible
- * @param {number} visibleSide
- */
-const getCubeRotation = (visibleSide) => `rotateX(-${visibleSide * 90}deg)`;
-
 const HomeAnimationWrapper = styled("div")`
   display: flex;
   position: absolute;
@@ -44,13 +34,8 @@ const HomeAnimationWrapper = styled("div")`
   z-index: -1;
   pointer-events: none;
 
-  left: ${GRID_GUTTER_REM.S};
-  right: ${GRID_GUTTER_REM.S};
-
-  ${BREAKPOINTS.M_MIN} {
-    left: ${GRID_GUTTER_REM.M};
-    right: ${GRID_GUTTER_REM.M};
-  }
+  left: 0;
+  right: 0;
 
   & ul {
     list-style: none;
@@ -58,23 +43,34 @@ const HomeAnimationWrapper = styled("div")`
     padding: 0;
   }
 `;
-
 const BlockList = styled("ul")`
   flex-basis: 100%;
   display: grid;
   grid-gap: ${GRID_GUTTER_REM.S};
-
-  ${BREAKPOINTS.L_MIN} {
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: ${GRID_GUTTER_REM.M};
-  }
 `;
 
 const BlockListItem = styled("li")`
   perspective: ${PERSPECTIVE}rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
 
-  ${BREAKPOINTS.L_MIN} {
-    grid-column: ${(props) => (props.index !== 0 ? "span 2" : null)};
+const rotate = keyframes`
+  0 {
+    transform: translateY(-6rem) rotateY(45deg) rotateX(45deg)
+  }
+
+  25% {
+    transform:  translateY(-3rem) rotateY(-45deg) rotateX(-45deg)
+  }
+
+  25% {
+    transform:  translateY(0rem) rotateY(-45deg) rotateX(-135deg)
+  }
+
+  100% {
+    transform: translateY(-3rem) rotateY(45deg) rotateX(-225deg)
   }
 `;
 
@@ -82,19 +78,19 @@ const Cube = styled("ul")`
   position: relative;
   transform-style: preserve-3d;
   position: relative;
-  width: 100%;
+  width: ${CUBE_HEIGHT}rem;
   height: ${CUBE_HEIGHT}rem;
-  transition: 400ms transform ${ANIMATION.EASING};
-  transform: ${(props) =>
-      props.mode3d ? "translateZ(0)" : `translateZ(${-CUBE_Z}rem)`}
-    ${(props) => getCubeRotation(props.visibleSide)};
-  & h3 {
-    transition: 400ms opacity ${ANIMATION.EASING_IN};
-    opacity: ${(props) => (props.textVisible ? "1" : "0")};
-  }
+  transform: translateZ(${-CUBE_Z}rem) rotateY(45deg) rotateX(45deg);
+  animation: ${rotate} 6000ms ${ANIMATION.EASING} infinite alternate;
+  margin: 0 auto;
 `;
 
-const CubeFace = styled("li")`
+const CubeFace = styled("li")<{
+  side?: boolean;
+  left?: boolean;
+  right?: boolean;
+  index: number;
+}>`
   border: ${rem(2)} solid ${COLOURS.PRIMARY};
   box-sizing: border-box;
   position: absolute;
@@ -108,231 +104,27 @@ const CubeFace = styled("li")`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: ${COLOURS.WHITE};
   transform: ${(props) => getCubeFaceTransform(props)};
   backface-visibility: hidden;
 `;
 
-const DURATIONS = {
-  wait: 500,
-  forward: 400,
-  spin: 800,
-  backwards: 400,
-};
+const faces = [0, 1, 2, 3];
 
-const WORDS = {
-  intro: ["A", "developer", "who"],
-  sections: ["writes", "builds", "learns"],
-  codeDescription: ["clean", "concise"],
-  codeItems: ["code"],
-  buildDescription: ["performant", "accsesible", "inclusive", "engaging"],
-  buildItems: ["products", "websites", "experiences", "webapps"],
-  learnDescription: ["new", "emerging", "useful"],
-  learnItems: ["things", "technologies", "skills", "processes"],
-};
-
-export default class HomeAnimation extends React.Component {
-  constructor() {
-    super();
-    const newBlockItems = this.generateBlockItems();
-
-    this.state = {
-      blocks: [
-        {
-          activeSide: 0,
-          blockItems: newBlockItems[0],
-          mode3d: false,
-          textVisible: false,
-        },
-        {
-          activeSide: 0,
-          blockItems: newBlockItems[1],
-          mode3d: false,
-          textVisible: false,
-        },
-        {
-          activeSide: 0,
-          blockItems: newBlockItems[2],
-          mode3d: false,
-          textVisible: false,
-        },
-      ],
-    };
-    this.timeline = null;
-  }
-
-  /**
-   * Return a random item from an arrau
-   * @param {Array} sourceArray
-   * @returns {*}
-   */
-  getRandomFromArray(sourceArray) {
-    return sourceArray[Math.floor(Math.random() * sourceArray.length)];
-  }
-
-  /**
-   * Get the text for all blocks
-   * Text is chosen randomly from pre-set lists
-   */
-  generateBlockItems() {
-    const {
-      intro,
-      sections,
-      codeItems,
-      codeDescription,
-      buildDescription,
-      learnDescription,
-      buildItems,
-      learnItems,
-    } = WORDS;
-    const codeDescriptionItem = this.getRandomFromArray(codeDescription);
-    const codeItemsItem = this.getRandomFromArray(codeItems);
-    const buildDescriptionItem = this.getRandomFromArray(buildDescription);
-    const buildItemsItem = this.getRandomFromArray(buildItems);
-    const learnDescriptionItem = this.getRandomFromArray(learnDescription);
-    const learnItemsItem = this.getRandomFromArray(learnItems);
-
-    return [
-      [intro[0], sections[0], sections[1], sections[2]],
-      [
-        intro[1],
-        codeDescriptionItem,
-        buildDescriptionItem,
-        learnDescriptionItem,
-      ],
-      [intro[2], codeItemsItem, buildItemsItem, learnItemsItem],
-    ];
-  }
-
-  generateAndSetBlockItems() {
-    const newBlockItems = this.generateBlockItems();
-    this.state.blocks.forEach((block, blockIndex) => {
-      this.setBlockState(blockIndex, { blockItems: newBlockItems[blockIndex] });
-    });
-  }
-
-  /**
-   * Update the state of item in blocks array
-   * @param {number} index
-   * @param {object} updatedAttributes
-   */
-  setBlockState(index, updatedAttributes) {
-    this.setState({
-      blocks: [
-        ...this.state.blocks.slice(0, index),
-        Object.assign({}, this.state.blocks[index], updatedAttributes),
-        ...this.state.blocks.slice(index + 1),
-      ],
-    });
-  }
-  /**
-   * Generate an array of timeline items to be passed to
-   * pushToTimeline
-   * @param {number} prevSideIndex
-   * @returns {array}
-   */
-  makeTimelineItems(prevSideIndex, blockIndex) {
-    const sidesTotal = 4;
-    return [
-      {
-        duration: DURATIONS.wait,
-        attributes: {
-          mode3d: true,
-        },
-      },
-      {
-        duration: DURATIONS.forward,
-        attributes: {
-          activeSide: prevSideIndex < sidesTotal - 1 ? prevSideIndex + 1 : 0,
-        },
-      },
-      {
-        duration: DURATIONS.backwards,
-        attributes: {
-          mode3d: false,
-        },
-      },
-    ];
-  }
-  /**
-   * Add timelineItems to the anime.js timeline
-   * @param {array} timelineItems
-   * @param {number} blockIndex
-   */
-  pushToTimeline(timelineItems, blockIndex) {
-    timelineItems.forEach(({ duration: itemDuration, attributes }, index) => {
-      this.timeline.add({
-        targets: {},
-        duration: itemDuration,
-        complete: this.setBlockState.bind(this, blockIndex, attributes),
-      });
-    });
-  }
-  componentDidMount() {
-    this.timeline = anime.timeline({
-      complete: () => {
-        this.generateAndSetBlockItems();
-        this.timeline.restart();
-      },
-    });
-    // Fade in text animation
-    const fadeInText = [
-      {
-        duration: 300,
-        attributes: {
-          textVisible: true,
-        },
-      },
-    ];
-    this.pushToTimeline(fadeInText, 0);
-    this.pushToTimeline(fadeInText, 1);
-    this.pushToTimeline(fadeInText, 2);
-
-    // Main cube rotation animation
-    this.state.blocks[0].blockItems.forEach((blockItem, blockItemIndex) => {
-      this.state.blocks.forEach((block, blockIndex) => {
-        const timelineItems = this.makeTimelineItems(
-          blockItemIndex,
-          blockIndex
-        );
-        this.pushToTimeline(timelineItems, blockIndex);
-      });
-    });
-  }
-  componentWillUnmount() {
-    // Stop animation timelines
-    this.timeline.pause();
-    this.timeline = null;
-  }
-  render() {
-    return (
-      <HomeAnimationWrapper>
-        <BlockList>
-          {this.state.blocks.map(
-            ({ blockItems, activeSide, mode3d, textVisible }, index) => (
-              <BlockListItem key={index} index={index}>
-                <Cube
-                  visibleSide={activeSide}
-                  mode3d={mode3d}
-                  textVisible={textVisible}
-                >
-                  <CubeFace side={true} left={true} />
-                  <CubeFace side={true} right={true} />
-                  {blockItems.map((blockItem, blockItemIndex) => (
-                    <CubeFace key={blockItemIndex} index={blockItemIndex}>
-                      <Heading element={"h3"} size={3}>
-                        {typeof blockItem === "string"
-                          ? blockItem
-                          : blockItem[0]}
-                      </Heading>
-                    </CubeFace>
-                  ))}
-                </Cube>
-              </BlockListItem>
-            )
-          )}
-        </BlockList>
-      </HomeAnimationWrapper>
-    );
-  }
+export default function HomeAnimation() {
+  return (
+    <HomeAnimationWrapper>
+      <BlockList>
+        <BlockListItem>
+          <Cube>
+            <CubeFace side={true} left={true} index={0} />
+            <CubeFace side={true} right={true} index={0} />
+            {faces.map((blockItemIndex) => (
+              <CubeFace key={blockItemIndex} index={blockItemIndex}></CubeFace>
+            ))}
+          </Cube>
+        </BlockListItem>
+      </BlockList>
+    </HomeAnimationWrapper>
+  );
 }
