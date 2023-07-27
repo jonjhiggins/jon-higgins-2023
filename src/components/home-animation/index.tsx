@@ -6,6 +6,8 @@ import { BASELINE_REM } from "~/settings/typography";
 import { rem } from "~/utils";
 import ANIMATION from "~/settings/animation";
 import { keyframes } from "@emotion/react";
+import Heading from "../heading";
+import { BREAKPOINTS } from "~/settings/breakpoints";
 
 const PERSPECTIVE = BASELINE_REM * 60;
 const CUBE_HEIGHT = BASELINE_REM * 50;
@@ -34,13 +36,24 @@ const HomeAnimationWrapper = styled("div")`
   z-index: -1;
   pointer-events: none;
 
-  left: 0;
-  right: 0;
+  left: ${GRID_GUTTER_REM.S};
+  right: ${GRID_GUTTER_REM.S};
+
+  ${BREAKPOINTS.M_MIN} {
+    left: ${GRID_GUTTER_REM.M};
+    right: ${GRID_GUTTER_REM.M};
+  }
 
   & ul {
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+
+  & h1 {
+    & > span {
+      display: block;
+    }
   }
 `;
 const BlockList = styled("ul")`
@@ -111,20 +124,28 @@ const CubeFace = styled("li")<{
 
 const faces = [0, 1, 2, 3];
 
-export default function HomeAnimation() {
+export default function HomeAnimation({ titleHTML }: { titleHTML: string }) {
   return (
-    <HomeAnimationWrapper>
-      <BlockList>
-        <BlockListItem>
-          <Cube>
-            <CubeFace side={true} left={true} index={0} />
-            <CubeFace side={true} right={true} index={0} />
-            {faces.map((blockItemIndex) => (
-              <CubeFace key={blockItemIndex} index={blockItemIndex}></CubeFace>
-            ))}
-          </Cube>
-        </BlockListItem>
-      </BlockList>
-    </HomeAnimationWrapper>
+    <div>
+      <HomeAnimationWrapper>
+        <BlockList>
+          <BlockListItem>
+            <Cube>
+              <CubeFace side={true} left={true} index={0} />
+              <CubeFace side={true} right={true} index={0} />
+              {faces.map((blockItemIndex) => (
+                <CubeFace
+                  key={blockItemIndex}
+                  index={blockItemIndex}
+                ></CubeFace>
+              ))}
+            </Cube>
+          </BlockListItem>
+        </BlockList>
+      </HomeAnimationWrapper>
+      <HomeAnimationWrapper>
+        <Heading element={"h1"} sizeS={3} sizeM={5} html={titleHTML}></Heading>
+      </HomeAnimationWrapper>
+    </div>
   );
 }
