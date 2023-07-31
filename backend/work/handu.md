@@ -20,3 +20,5 @@ xrMa: true
 <p><iframe width="560" height="315" src="https://www.youtube.com/embed/N58rosr4VTs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
 
 This was a student project created on the Virtual and Extended Realities MA at UWE, Bristol. Brief was set by industry client Ultraleap who supplied hand tracking technology and supported us.
+
+Read more about the process in [How can hand-tracked mixed reality experiences use gestural control to encourage expressive movement?](/words/how-can-hand-tracked-mixed-reality-experiences-use-gestural-control-encourage-expressive-movement).
