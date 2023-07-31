@@ -17,8 +17,11 @@ const BodyText = styled("div")({
     margin: `0 0 ${rem(BASELINE * 2)}`,
     padding: `0 0 0 1em`,
   },
-  "p + ul, p + ol": {
+  "p:not + ul, p + ol": {
     marginTop: `-${rem(BASELINE)}`,
+  },
+  ".footnotes p + ul, .footnotes p + ol": {
+    marginTop: `0`,
   },
   li: {
     marginBottom: rem(BASELINE * 1),
