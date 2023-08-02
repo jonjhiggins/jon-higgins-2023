@@ -15,5 +15,5 @@ I look forward to applying my previous industry experience to XR, which includes
 
 - [Email](mailto:jon@jonhiggins.co.uk)
 - [Github](https://github.com/jonjhiggins/)
-- [LinkedIn](https://uk.linkedin.com/pub/jon-higgins/44/73/a10)
+- [LinkedIn](https://linkedin.com/in/jonjhiggins)
 - [Twitter](https://twitter.com/jonjhiggins)
