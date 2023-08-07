@@ -30,7 +30,10 @@ const Icon = styled("svg")`
   flex: 0 0 auto;
 `;
 
-export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
+export default function Template({
+  data,
+  location,
+}: PageProps<Queries.BlogPostQuery>) {
   const { markdownRemark } = data; // data.markdownRemark holds our post data
   if (!markdownRemark || !markdownRemark.frontmatter) {
     throw new Error("Could not read markdown");
@@ -52,10 +55,14 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
       ? `${mediaPath}${heroVideos[0]}`
       : undefined;
   const hasMedia = !!videoPath || (heroImages && heroImages.length > 0);
-  console.log(description);
   return (
     <PageWrapper>
-      <SEO title={title || ""} description={description || ""} />
+      <SEO
+        title={title || ""}
+        description={description || ""}
+        imageUrl={heroImages?.[0]?.image?.childImageSharp?.fixed?.src}
+        pathname={location.pathname}
+      />
       <HeadingBackground>{title}</HeadingBackground>
       <ArticleWrapper>
         <Article hasMedia={!!hasMedia}>
@@ -134,6 +141,9 @@ export const pageQuery = graphql`
         heroImages {
           image {
             childImageSharp {
+              fixed {
+                src
+              }
               gatsbyImageData(layout: FULL_WIDTH)
             }
           }

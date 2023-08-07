@@ -2,7 +2,7 @@ import React from "react";
 import PageWrapper from "~/components/page-wrapper";
 import HomeAnimation from "~/components/home-animation";
 import SEO from "~/components/seo";
-import { graphql, useStaticQuery } from "gatsby";
+import { HeadProps, graphql, useStaticQuery } from "gatsby";
 
 const ThisPage = () => {
   const siteData = useStaticQuery(graphql`
@@ -16,10 +16,13 @@ const ThisPage = () => {
   `);
   return (
     <PageWrapper>
-      <SEO title="Home" />
       <HomeAnimation titleHTML={siteData.site.siteMetadata.titleHTML} />
     </PageWrapper>
   );
 };
+
+export function Head({ location }: HeadProps) {
+  return <SEO pathname={location.pathname} />;
+}
 
 export default ThisPage;

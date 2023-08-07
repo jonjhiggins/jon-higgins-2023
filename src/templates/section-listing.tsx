@@ -21,6 +21,7 @@ interface Props {
     link: string;
     text: string;
   };
+  pathname: string;
 }
 
 const SectionListingWrapper = styled("div")`
@@ -51,10 +52,15 @@ const LinkBlockStyled = styled(LinkBlock)`
   margin-bottom: 0;
 `;
 
-export default function SectionListing({ heading, items, footerCTA }: Props) {
+export default function SectionListing({
+  heading,
+  items,
+  footerCTA,
+  pathname,
+}: Props) {
   return (
     <PageWrapper>
-      <SEO title={heading} />
+      <SEO title={heading} pathname={pathname} />
       <HeadingBackground>{heading}</HeadingBackground>
       <SectionListingWrapper>
         <LinkBlocks>

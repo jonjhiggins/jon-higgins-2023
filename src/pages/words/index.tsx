@@ -11,6 +11,7 @@ export default function Section({
   data: {
     allMarkdownRemark: { edges: items },
   },
+  location,
 }: PageProps<Queries.GetWordsPostsQuery>) {
   return (
     <SectionTemplate
@@ -20,6 +21,7 @@ export default function Section({
         text: "Archive",
         link: "/words/archive",
       }}
+      pathname={location.pathname}
     />
   );
 }

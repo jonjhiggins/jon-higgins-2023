@@ -1,21 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "what-input";
 import "url-search-params-polyfill";
-import interUI from "~/fonts/inter-ui-regular.woff2";
-import interUIBold from "~/fonts/inter-ui-bold.woff2";
 import { BASELINE } from "~/settings/typography";
 import styled from "@emotion/styled";
 import { MAX_WIDTH_REM } from "~/settings/max-width";
 import { BREAKPOINTS, BREAKPOINTS_RAW } from "~/settings/breakpoints";
 import COLOURS from "~/settings/colours";
 import { rem } from "~/utils";
-import { Helmet } from "react-helmet";
 import BaselineGrid from "~/components/baseline-grid";
 import SiteHeader from "~/components/site-header";
 import Transition from "~/components/transition";
 import Typography from "~/components/typography";
 import { useStaticQuery, graphql, PageProps } from "gatsby";
-import favicon from "~/images/favicon.png";
 
 // Accessibility
 import "what-input";
@@ -245,12 +241,6 @@ export default function Layout({ children, location }: PageProps) {
   const hasGrid = grid === "true" || grid === "1";
   return (
     <Wrapper headerFixed={state.headerFixed}>
-      <Helmet title={siteData.site.siteMetadata.title}>
-        <html lang="en" />
-        <link rel="preload" href={interUI} as="font" type="font/woff2" />
-        <link rel="preload" href={interUIBold} as="font" type="font/woff2" />
-        <link rel="shortcut icon" type="image/png" href={favicon}></link>
-      </Helmet>
       <Typography />
       {hasGrid && <BaselineGrid />}
       <SiteHeader

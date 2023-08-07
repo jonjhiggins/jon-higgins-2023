@@ -1,77 +1,40 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
-import { graphql, useStaticQuery } from "gatsby";
+import { useSiteMetadataContext } from "./app-providers";
+import interUI from "~/fonts/inter-ui-regular.woff2";
+import interUIBold from "~/fonts/inter-ui-bold.woff2";
+import favicon from "~/images/favicon.png";
 
 interface Props {
   description?: string;
-  lang?: string;
   meta?: string[];
   title?: string;
+  imageUrl?: string | null;
+  pathname: string;
 }
 
-function SEO({ description, lang, title }: Props) {
-  const data = useStaticQuery(graphql`
-    query DefaultSEOQuery {
-      site {
-        siteMetadata {
-          title
-          description
-          author
-        }
-      }
-    }
-  `);
-  const metaDescription = description || data.site.siteMetadata.description;
+function SEO({ description, title, imageUrl, pathname }: Props) {
+  const data = useSiteMetadataContext();
+  const titleStr = title ? `${title} | ${data.title}` : data.title;
+  const metaDescription = description || data.description;
+  const canonicalUrl = data.siteUrl + pathname;
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: description || metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          property: `og:url`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: data.site.siteMetadata.author,
-        },
-      ]}
-    />
+    <>
+      <title>{titleStr}</title>
+      <html lang="en" />
+      <link rel="preload" href={interUI} as="font" type="font/woff2" />
+      <link rel="preload" href={interUIBold} as="font" type="font/woff2" />
+      <link rel="shortcut icon" type="image/png" href={favicon}></link>
+      <meta name="description" content={metaDescription} />
+      <meta property="og:title" content={titleStr} />
+      {imageUrl ? (
+        <meta property="og:image" content={`${data.siteUrl}${imageUrl}`} />
+      ) : null}
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:type" content="website" />
+      <meta property="twitter:card" content="summary" />
+    </>
   );
 }
-
-SEO.defaultProps = {
-  lang: `en`,
-};
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  title: PropTypes.string.isRequired,
-};
 
 export default SEO;

@@ -11,6 +11,7 @@ export default function Section({
   data: {
     allMarkdownRemark: { edges: items },
   },
+  location,
 }: PageProps<Queries.GetWorkArchivePostsQuery>) {
   const itemsFiltered = items.filter((item) => item.node.frontmatter.archive);
   return (
@@ -21,6 +22,7 @@ export default function Section({
         text: "Back to Work",
         link: "/work",
       }}
+      pathname={location.pathname}
     />
   );
 }

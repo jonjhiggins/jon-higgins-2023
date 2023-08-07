@@ -11,7 +11,8 @@ export default function Section({
   data: {
     allMarkdownRemark: { edges: items },
   },
-}: PageProps<Queries.GetWordsArchivePosts>) {
+  location,
+}: PageProps<Queries.GetWordsArchivePostsQuery>) {
   const itemsFiltered = items.filter((item) => item.node.frontmatter.archive);
   return (
     <SectionTemplate
@@ -21,6 +22,7 @@ export default function Section({
         text: "Back to Words",
         link: "/words",
       }}
+      pathname={location.pathname}
     />
   );
 }
