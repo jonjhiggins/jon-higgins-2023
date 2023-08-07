@@ -52,9 +52,10 @@ export default function Template({ data }: PageProps<Queries.BlogPostQuery>) {
       ? `${mediaPath}${heroVideos[0]}`
       : undefined;
   const hasMedia = !!videoPath || (heroImages && heroImages.length > 0);
+  console.log(description);
   return (
     <PageWrapper>
-      <SEO title={title || ""} />
+      <SEO title={title || ""} description={description || ""} />
       <HeadingBackground>{title}</HeadingBackground>
       <ArticleWrapper>
         <Article hasMedia={!!hasMedia}>
