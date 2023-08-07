@@ -17,7 +17,7 @@ const BodyText = styled("div")({
     margin: `0 0 ${rem(BASELINE * 2)}`,
     padding: `0 0 0 1em`,
   },
-  "p:not + ul, p + ol": {
+  "p + ul, p + ol": {
     marginTop: `-${rem(BASELINE)}`,
   },
   ".footnotes p + ul, .footnotes p + ol": {
@@ -25,6 +25,9 @@ const BodyText = styled("div")({
   },
   li: {
     marginBottom: rem(BASELINE * 1),
+  },
+  "li > ul, li > ul > li": {
+    marginBottom: 0,
   },
   a: {
     color: "inherit",
