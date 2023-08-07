@@ -141,7 +141,7 @@ export const pageQuery = graphql`
         heroImages {
           image {
             childImageSharp {
-              fixed {
+              fixed(width: 1200) {
                 src
               }
               gatsbyImageData(layout: FULL_WIDTH)

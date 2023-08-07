@@ -25,7 +25,7 @@ function SEO({ description, title, imageUrl, pathname }: Props) {
       <link rel="preload" href={interUIBold} as="font" type="font/woff2" />
       <link rel="shortcut icon" type="image/png" href={favicon}></link>
       <meta name="description" content={metaDescription} />
-      <meta property="og:title" content={titleStr} />
+      <meta property="og:title" content={title || data.title} />
       {imageUrl ? (
         <meta property="og:image" content={`${data.siteUrl}${imageUrl}`} />
       ) : null}
