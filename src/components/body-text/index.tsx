@@ -26,7 +26,7 @@ const BodyText = styled("div")({
   li: {
     marginBottom: rem(BASELINE * 1),
   },
-  "li > ul, li > ul > li": {
+  "li > ul, li > ul > li, li > ol, li > ol > li": {
     marginBottom: 0,
   },
   a: {
