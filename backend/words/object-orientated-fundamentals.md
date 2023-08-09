@@ -77,6 +77,7 @@ Analysis and design take place together ahead of programming. These can consist 
 UML is a standard notation for visualising object-orientated systems, which can be useful when needing to communicate things that are not clear in the technical design. Be wary of over-using or making complicated UML diagrams - they should be a quick communication tool. There are many elements of UML, including structural and behavioural diagrams, here is its approach to a class diagram:
 
 ![Example of UML class diagram.jpg](/assets/object-orientated-1.jpg)
+Image credit: LinkedIn Learning
 
 This allows sketching out a class in a format that will work regardless of programming language choice.
 
@@ -118,3 +119,217 @@ Further reading:
 
 - Software Requirements by Karl Wiegers
 - Mastering the requirements process by Suzanne and James Robertson
+
+## Use cases and user stories
+
+#### Use cases
+
+Places focus on the user and what they want to achieve. They can be written in different ways, but need to contain:
+
+- **Title** _what_ is the goal?
+  - Short phrase that contains an active verb
+  - E.g. as an astronaut my goal would be to heat a delicious meal package could be title “Heat meal”
+- **Primary actor** _who_ desires it?
+  - Someone (e.g. customer, employee or administrator) or something external (e.g. other computer systems) that interacts with or uses the system
+- **Success scenario** _how_ is it accomplished?
+  - Main part of use case, a single paragraph that details how the goal is accomplished.
+  - Short and succinct, using everyday non-technical language so it can be understood by typical users of the system
+  - E.g. “The astronaut inserts the meal package, the system identifies the package, heating it up for the correct amount of time, notifies the astronaut that it's ready via space pager, and finally, the astronaut returns to remove the hot meal package.
+  - Can also be written as a series of steps
+    1. Astronaut inserts the meal package
+    2. System identifies the package […]
+  - Omit needless words, e.g. “Astronaut inserts the meal package” not "the system is provided with the meal package by the astronaut”.
+  - Avoid implementation details, e.g. “system sends pager message” not "the system connects to the external pager system over HTTPS and uses JSON to format the text message […]”
+  - Omit UI implementation details, e.g. avoid “User pressed start button” and focus on their intention
+
+Further reading:
+
+- Alistair Cockburn “Writing Effective Use Cases”
+
+#### Identifying the actors
+
+Before writing use cases, it can be useful to brainstorm possible actors - anything that lives outside of your application but interacts with it to accomplish some goal. Sometimes this is straightforward (video game with one actor, the player) and sometimes complex (space microwave with multiple people with different goals). In addition to humans, think about other computer systems that your system needs to interact with.
+
+When thinking about actors, it is their goal in relation to the system that is important. For example you may identify multiple job roles as actors:
+
+![Diagram showing actors Commander, Pilot, Cook](/assets/object-orientated-2.png)
+Image credit: LinkedIn Learning
+
+But as the job roles share two distinct goals, we can simplify our actors accordingly:
+
+![Diagram showing actors refined to cook and observer](/assets/object-orientated-3.png)
+Image credit: LinkedIn Learning
+
+Use cases have primary and secondary actors, primary being the ones that initiated it (but not necessarily the most important in the scenario).
+
+#### Identifying the scenarios
+
+Describe a **goal** that an actor can accomplish in a single encounter via several steps. Focus on what the user really wants to accomplish.
+
+e.g
+
+- ❌ ”turn on microwave” - an active verb phrase, but the user’s intent or overall goal is not to turn on microwave. This is a step in a scenario.
+- ✅ ”cook meal” a user focussed, active verb phrase that describes user’s overall goal
+- ✅ ”generate reports”, “change settings”, “order supplies”
+- ❌ ”feed entire crew” may be too broad, as it involves multiple encounters and needs breaking into smaller use cases
+
+Identify primary scenarios first, you can eventually move to unhappy paths or extensions but be wary of going over-the-top. This can include what happens when the system fails, or how the system is monitored, which likely involve different actors.
+
+#### Use case diagrams (UML)
+
+A simple overview of the relationships between multiple use cases and actors. Useful to communicate to non-technical users and understand if something is missing.
+
+- List out use cases in centre, draw circles around each of them
+- Draw a box around use cases to represent the system
+- List out primary actors on left, use stick figures to represent humans and boxes to represent non-human actors
+- Draw lines (without arrows) between actors and use cases they will want to interact with
+- List out secondary actors on right
+
+#### User stories
+
+Another written format for describing parts of an application - shorter and simpler than a use case. Describes a single small scenario from a user’s perspective, focussing on their goal and why - rather than focussing on the system. Placeholder for a conversation, whereas use case is a record of conversation - different software development methodologies favour one over the other.
+
+- Typically one sentence long
+- Follows format:
+  - **as a** [type of user or role]
+  - **I want** [describe the goal],
+  - **so that** [reason or benefit]
+- E.g. “As an astronaut, I want to heat up my food so that I can eat a warm meal” → focuses on one specific goal of one specific user for a particular reason.
+- Same as use cases, should not include implementation details or UI elements
+
+Further reading:
+
+- Mike Cohn “User Stories Applied for Agile Software Development”
+
+## Domain modelling
+
+#### Identifying objects
+
+Now that we have performed analysis and understand the problem we are trying to solve we can move to the design of the solution. First step is defining the conceptual model, which is just a fancy phrase for identifying the most important objects in the application and the relationship between them.
+
+To identify objects, read through your use cases and underline the nouns, e.g. “The system spawns enemy spaceship in play area. Spaceship flies towards player asteroid and fires missile at it. Player steers asteroid in direction to avoid missile path. Missile flies past player asteroid and disappears offscreen.” Filtering out duplicates and irrelevant nouns you can a list of potential objects / beginning of conceptual model:
+
+- Spaceship
+- Area
+- Asteroid
+- Player
+- Path
+- Missile
+- Direction
+
+#### Identifying class relationships
+
+Draw out all your identified objects and draw any relationships between them. E.g. Asteroid exists within an Area, so draw a line between them. You can add text above the line explaining the relationship, e.g. Area “contains” Asteroid. You can add UML multiplicity notations, e.g. a 1 by Area (there is only one Area) and 1\* by the Asteroid (an Area contains many Asteroids). Only add this if its interesting or important enough to include.
+
+![Diagram showing class relationships](/assets/object-orientated-4.jpg)
+Image credit: LinkedIn Learning
+
+#### Identifying class responsibilities
+
+To identify responsibilities, repeat the task of underlining words from your use cases, this time looking for verbs and verb phrases. E.g. “The system spawns enemy spaceship in play area. Spaceship flies towards player asteroid and fires missile at it. Player steers asteroid in direction to avoid missile path. Missile flies past player asteroid and disappears offscreen.” Filtering out duplicates and irrelevant verbs you can a list of potential responsibilities:
+
+- Spawns enemy spaceship
+- Flies towards player
+- Fires missle
+- Steers Asteroid
+- Avoid missile
+- Flies past player
+- Disappears offscreen
+
+The next step is deciding which objects should have these responsibilities. Use cases are written from the perspective of the object that initiates the responsibility/action, but it shouldn’t necessarily be the owner of it. For example, Player steers Asteroid - Player initiates the action, but **an object should be responsible for itself**. Therefore, the Asteroid should be responsible for steering itself (changing its inner state), but should allow a method for the Player to tell the Asteroid where it should go. The responsibilities from the use cases will likely need to be renamed and shortened when defined as class responsibilities. Both these steps can be done by drawing out the objects and trying to assign your potential responsibilities to them:
+
+![Diagram of class responsbilities](/assets/object-orientated-5.jpg)
+
+In this example:
+
+- “Spawns enemy spaceship” has been simplified to “Spawn” and assigned to Spaceship
+- “Flies towards player” simplified to “Move”, assigned to Spaceship
+- “Fires missile” simplified to “Spawn”, assigned to Missile
+
+Note Player has no responsibilities, but will likely initiate many of the actions. Avoid assigning too many responsibilities to one object (known as a God Object), which will make maintaining and updating the application in the future easier. Sometimes this happens by creating a System object e.g. “system spawns spaceship”, where this should really be “some part of the system spawns spaceship”
+
+#### CRC cards
+
+CRC stands for Class, Responsibility, Collaboration. The same information as a Conceptual Object Diagram, in a different format; drawn on index cards and are simple, easy to create, hand around and discuss. Each card represents one class:
+
+- C is the name of the class at the top, underlined
+- R is the responsibilities of the class
+- Second C is for collaborators - other classes it interacts with
+
+<table>
+<thead>
+<tr>
+<th colspan="2">Class name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Responsibilities</td>
+<td>Collaborators</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+For example
+
+<table>
+<thead>
+<tr>
+<th colspan="2">Missile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fly through space</td>
+<td>Spaceship</td>
+</tr>
+<tr>
+<td>Destroy asteroid</td>
+<td>Area</td>
+</tr>
+<tr>
+<td>Disappear offscreen</td>
+<td>Asteroids</td>
+</tr>
+</tbody>
+</table>
+
+The responsibilities don’t have to be the official method names, just what describes the behaviour. Collaborators don’t have to directly relate to the responsibility that is on the same line, its just a list of other objects that interact with it, e.g. Missile is fired by Spaceship, it exists in Area and destroys Asteroids”. The idea of using physical index cards is that if you run out of room for responsibilities then you probably need to break that object down to distribute the responsibilities.
+
+## Class diagrams
+
+Now you have a conceptual model, it’s possible to design the classes. This is where specific object-orientated principles like inheritance and polymorphism come into play. The most common format is UML, which can be used to detail basic information or be very complex. Here we are using just the basics
+
+| Class Name |
+| ---------- |
+| Attributes |
+| Behaviours |
+
+For example:
+
+| Spaceship                                                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| - callSign: String = “Excelsior” <br/> - shieldActive: Boolean <br/>- shieldStrength: Integer <br/>- position: Coordinate <br/>+ getShieldStrength(): Integer |
+| + reduceShield(Integer) <br/> + getPosition(): Coordin<br/> + move(Direction) <br/> - setPosition(Coordinate)                                                 |
+
+For attributes, the text after the colon indicates their type. You don’t need to define the types specific to your language implementation, e.g. just specify String rather than String32. The text after the equals sign indicates a default value.
+
+For behaviours use short verb phrases. It’s common practice to name methods that retrieve and modify attributes as “get” and “set” methods - some languages will automatically create getter and setter methods for you. Parameter types are specified in the parenthesis and return types are specified after the colon.
+
+Plus and minus signs at start indicate public (+) and private (-). Classes may have a lot of internal complexity, but the focus is on public visibility - what are the attributes and responsibilities other classes need to know about? Leave as many things private as possible, in line with principle of encapsulation. E.g. attribute position is kept private so other classes can’t modify it directly, but its value is exposed by getPosition.
+
+The idea behind drawing these diagrams before jumping into code is to focus on the behaviours, as when coding we often start with the attributes, which can end up with classes with few or no behaviours.
+
+After this point we are ready to start implementing the classes in code.

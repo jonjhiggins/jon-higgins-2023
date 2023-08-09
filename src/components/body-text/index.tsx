@@ -17,7 +17,7 @@ const BodyText = styled("div")({
     margin: `0 0 ${rem(BASELINE * 2)}`,
     padding: `0 0 0 1em`,
   },
-  "p + ul, p + ol": {
+  "p + ul, p + ol, p + table": {
     marginTop: `-${rem(BASELINE)}`,
   },
   ".footnotes p + ul, .footnotes p + ol": {
@@ -150,6 +150,12 @@ const BodyText = styled("div")({
   },
   "img, video": {
     border: `1px solid ${COLOURS.PRIMARY}`,
+  },
+  table: { borderCollapse: "collapse", margin: `0 0 ${rem(BASELINE)}` },
+  th: { fontWeight: "bold" },
+  "td, th": {
+    border: `1px solid ${COLOURS.GREY_2}`,
+    padding: `${rem(BASELINE / 4)} `,
   },
 });
 

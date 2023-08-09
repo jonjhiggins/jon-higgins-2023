@@ -132,3 +132,27 @@ At augue eget arcu dictum varius. Pretium aenean pharetra magna ac. Lobortis sce
 1. At `augue eget arcu dictum` varius.
 2. Pretium `aenean` pharetra magna ac.
 3. `Amet justo donec enim diam`.
+
+###### Table
+
+<table>
+<thead>
+<tr>
+<th colspan="2">Missile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fly through space</td>
+<td>Spaceship</td>
+</tr>
+<tr>
+<td>Destroy asteroid</td>
+<td>Area</td>
+</tr>
+<tr>
+<td>Disappear offscreen</td>
+<td>Asteroids</td>
+</tr>
+</tbody>
+</table>
