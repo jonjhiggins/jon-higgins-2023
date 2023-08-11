@@ -7,3 +7,34 @@ Redirect 301 /words/formdata-ie10 archive/going-serverless /words/archive/formda
 Redirect 301 /words/going-serverless /words/archive/going-serverless
 Redirect 301 /words/grunt-for-email-templates /words/archive/grunt-for-email-templates
 Redirect 301 /words/max-device-width /words/archive/max-device-width
+
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
+# Remove `ETags` as resources are sent with far-future expires headers.
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+
+FileETag None
+
+# ----------------------------------------------------------------------
+# | Expires headers                                                    |
+# ----------------------------------------------------------------------
+
+# This matches the settings descriped at: 
+# https://www.gatsbyjs.org/docs/caching/
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|json)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "\.(js|css|jpg|png|mp4)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <Files sw.js>
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </Files>
+</IfModule>
