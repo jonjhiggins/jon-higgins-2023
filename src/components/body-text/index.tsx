@@ -25,6 +25,9 @@ const BodyText = styled("div")({
   },
   li: {
     marginBottom: rem(BASELINE * 1),
+    "&:last-child": {
+      marginBottom: 0,
+    },
   },
   "li > ul, li > ul > li, li > ol, li > ol > li": {
     marginBottom: 0,
@@ -142,7 +145,7 @@ const BodyText = styled("div")({
   },
   /* inline code doesn't need prism colour styling */
   "*:not(pre) > code": {
-    background: "transparent",
+    background: COLOURS.GREY_BORDER,
     color: "inherit",
   },
   video: {
@@ -156,6 +159,11 @@ const BodyText = styled("div")({
   "td, th": {
     border: `1px solid ${COLOURS.GREY_2}`,
     padding: `${rem(BASELINE / 4)} `,
+  },
+  ".gist": {
+    "table, th, td": {
+      all: "revert",
+    },
   },
 });
 

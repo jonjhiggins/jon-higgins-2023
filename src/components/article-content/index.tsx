@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 
 import { BREAKPOINTS } from "~/settings/breakpoints";
 import { GRID_GUTTER_REM } from "~/settings/grid";
+import { BASELINE } from "~/settings/typography";
+import { rem } from "~/utils";
 
 const ArticleContent = styled("div")<{ centreGrid?: boolean }>`
   display: inherit;
@@ -28,10 +30,11 @@ const ArticleContent = styled("div")<{ centreGrid?: boolean }>`
     }
 
     /* make code blocks full width */
-    & > .gatsby-highlight {
+    & > .gatsby-highlight,
+    & > .gist {
       ${BREAKPOINTS.M_MIN} {
         grid-column: article-full;
-        padding: ${GRID_GUTTER_REM.M};
+        padding: 0 ${GRID_GUTTER_REM.M} ${rem(BASELINE)};
       }
     }
   }

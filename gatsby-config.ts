@@ -87,6 +87,7 @@ const config: GatsbyConfig = {
               dashes: `oldschool`,
             },
           },
+          { resolve: "gatsby-remark-embed-gist" },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
