@@ -21,4 +21,7 @@ xrMa: true
 
 This was a student project created on the Virtual and Extended Realities MA at UWE, Bristol. Brief was set by industry client Ultraleap who supplied hand tracking technology and supported us.
 
-Read more about the process in [How can hand-tracked mixed reality experiences use gestural control to encourage expressive movement?](/words/how-can-hand-tracked-mixed-reality-experiences-use-gestural-control-encourage-expressive-movement).
+Read more about the process in:
+
+- [Building Handu's mixed reality world in Unity](/words/building-handus-mixed-reality-world-in-unity/)
+- [How can hand-tracked mixed reality experiences use gestural control to encourage expressive movement?](/words/how-can-hand-tracked-mixed-reality-experiences-use-gestural-control-encourage-expressive-movement).
