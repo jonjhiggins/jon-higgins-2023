@@ -42,6 +42,8 @@ This scene played underneath all the other scenes and contained the XR rig and o
 
 It also contained the Ultraleap Service Provider and Interaction Manager. Different hand prefabs were hidden/shown as required by the current scene. [MainSceneManager component](https://github.com/uwe-xr-ma-2023/handu/blob/main/Assets/Scripts/MainSceneManager.cs) could be edited in UI for all team (e.g. scene timings, audio files).
 
+> Update October 2023: At the time I didn't know about Unity's [Timeline feature](https://docs.unity3d.com/Packages/com.unity.timeline@1.8/manual/index.html). Retrospectively this would have worked better for sequencing timings and visualising the experience's timings.
+
 ![Main scene Manager screenshot](/assets/handu-mainscenemanager.jpg)
 
 We defined an invisible Play Area object, a 4x2x4m box which we kept all other game objects within. In the physical space we always drew the play area to be at least 4x4 - making sure the user can always reach game objects.
