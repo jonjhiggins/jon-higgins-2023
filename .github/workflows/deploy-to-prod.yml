@@ -10,15 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     steps:
-      - uses: contention/rsync-deployments@v2.0.0
+      - uses: actions/checkout@v3
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@7.0.1
         with:
-          flags: -avzr --delete --dry-run
-          excludes: --exclude .htaccess --exclude /uploads/
-          user: ${{ vars.USER }}
-          host: ${{ vars.HOST }}
-          localpath: ${{ vars.BUILD_DIR }}
-          remotepath: ${{ vars.DIR }}
-          deploy_key: ${{ secrets.DEPLOY_KEY }}
+          switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
+          remote_user: ${{ vars.USER }}
+          remote_host: ${{ vars.HOST }}
+          path: ${{ vars.BUILD_DIR }}
+          remote_path: ${{ vars.DIR }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_port: ${{ vars.PORT }}
 
 
 
