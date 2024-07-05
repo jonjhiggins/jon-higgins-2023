@@ -20,6 +20,7 @@ jobs:
           path: ${{ vars.BUILD_DIR }}
           remote_path: ${{ vars.DIR }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
           remote_port: ${{ vars.PORT }}
 
 
