@@ -26,7 +26,7 @@ jobs:
       - name: rsync deployments
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
+          switches: -avzr --delete --exclude="${{ vars.EXCLUDE }}"
           remote_user: ${{ vars.USER }}
           remote_host: ${{ vars.HOST }}
           path: ${{ vars.BUILD_DIR }}
