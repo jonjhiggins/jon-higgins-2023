@@ -10,6 +10,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     environment: prod
+    outputs:
+      build_dir: ${{ steps.set_build_dir.outputs.build_dir }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -24,7 +26,8 @@ jobs:
       - name: Test
         run: npm test
       - name: Set BUILD_DIR
-        run: echo "BUILD_DIR=$(pwd)/public" >> $GITHUB_ENV
+        id: set_build_dir
+        run: echo "::set-output name=build_dir::$(pwd)/public"
   deploy:
     name: Deploy
     needs: build
@@ -39,7 +42,7 @@ jobs:
           switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
           remote_user: ${{ vars.USER }}
           remote_host: ${{ vars.HOST }}
-          path: ${{ env.BUILD_DIR }}
+          path: ${{ needs.build.outputs.build_dir }}
           remote_path: ${{ vars.DIR }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
