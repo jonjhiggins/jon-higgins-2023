@@ -1,4 +1,4 @@
-name:  Deploy to production
+name: Build and Deploy to Production
 
 on:
   push:
@@ -6,12 +6,10 @@ on:
       - main
 
 jobs:
-  build:
-    name: Build
+  build_and_deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
     environment: prod
-    outputs:
-      build_dir: ${{ steps.set_build_dir.outputs.build_dir }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -25,30 +23,14 @@ jobs:
         run: npm run build --if-present
       - name: Test
         run: npm test
-      - name: Set build_dir
-        id: set_build_dir
-        run: echo "build_dir=$(pwd)/public" >> $GITHUB_OUTPUT
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    environment: prod
-    steps:
-      - uses: actions/checkout@v4
-      - run:  echo ${{ needs.build.outputs.build_dir }}
-      - name: Check build dir exists
-        run: ls -la ${{ needs.build.outputs.build_dir }}
       - name: rsync deployments
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
           remote_user: ${{ vars.USER }}
           remote_host: ${{ vars.HOST }}
-          path: ${{ needs.build.outputs.build_dir }}
+          path: ${{ vars.BUILD_DIR }}
           remote_path: ${{ vars.DIR }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
           remote_port: ${{ vars.PORT }}
-
-
-
