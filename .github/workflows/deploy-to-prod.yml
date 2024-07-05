@@ -33,7 +33,7 @@ jobs:
           switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
           remote_user: ${{ vars.USER }}
           remote_host: ${{ vars.HOST }}
-          path: ${{ github.workspace }}/${{ vars.BUILD_DIR }}
+          path: ${{ vars.BUILD_DIR }}
           remote_path: ${{ vars.DIR }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
