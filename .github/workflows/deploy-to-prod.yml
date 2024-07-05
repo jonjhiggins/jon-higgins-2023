@@ -25,9 +25,9 @@ jobs:
         run: npm run build --if-present
       - name: Test
         run: npm test
-      - name: Set BUILD_DIR
+      - name: Set build_dir
         id: set_build_dir
-        run: echo "::set-output name=build_dir::$(pwd)/public"
+        run: echo "build_dir=$(pwd)/public" >> $GITHUB_OUTPUT
   deploy:
     name: Deploy
     needs: build
