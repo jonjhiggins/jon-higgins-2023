@@ -1,0 +1,24 @@
+name:  Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: contention/rsync-deployments@v2.0.0
+        with:
+          flags: -avzr --delete --dry-run
+          excludes: --exclude .htaccess --exclude /uploads/
+          user: ${{ vars.USER }}
+          host: ${{ vars.HOST }}
+          localpath: ${{ vars.BUILD_DIR }}
+          remotepath: ${{ vars.DIR }}
+          deploy_key: ${{ secrets.DEPLOY_KEY }}
+
+
+
