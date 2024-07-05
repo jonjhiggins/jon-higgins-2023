@@ -17,9 +17,14 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      - name: Install NPM dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
+      - name: Test
+        run: npm test
+      - name: Set BUILD_DIR
+        run: echo "BUILD_DIR=$(pwd)/public" >> $GITHUB_ENV
   deploy:
     name: Deploy
     needs: build
@@ -33,7 +38,7 @@ jobs:
           switches: -avzr --delete --dry-run --exclude="${{ vars.EXCLUDE }}"
           remote_user: ${{ vars.USER }}
           remote_host: ${{ vars.HOST }}
-          path: ${{ vars.BUILD_DIR }}
+          path: ${{ env.BUILD_DIR }}
           remote_path: ${{ vars.DIR }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           remote_key_pass: ${{ secrets.DEPLOY_KEY_PASS }}
