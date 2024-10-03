@@ -36,7 +36,7 @@ const BodyText = styled("div")({
     color: "inherit",
     textDecoration: "none",
   },
-  "a:not(.gatsby-resp-image-link):not(.footnote-backref)": {
+  "a:not(.gatsby-resp-image-link):not(.footnote-backref):not(.autolink-header-link)": {
     borderBottom: `${rem(2)} solid ${COLOURS.PRIMARY}`,
     lineHeight: "1",
     position: "relative",

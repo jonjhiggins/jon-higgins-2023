@@ -66,6 +66,13 @@ const config: GatsbyConfig = {
         plugins: [
           "gatsby-plugin-sitemap",
           {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: `autolink-header-link`,
+
+            },
+          },
+          {
             resolve: `gatsby-remark-relative-images`,
             options: {
               name: "images",
