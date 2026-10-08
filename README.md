@@ -8,7 +8,7 @@ Portfolio site. Designed and built [back in 2019](https://github.com/jonjhiggins
 - Develop `npm run develop`
 - Build `npm run develop`
 
-If you get an `ENAMETOOLONG: name too long` error when developing or building, try removing `public` directory
+If you get an `ENAMETOOLONG: name too long` error when developing or building, try `npm run clean` to remove the `public` and `.cache` directories
 
 ## Deployment
 
