@@ -5,7 +5,7 @@ description: Hi! 👋 I'm Jon and I'm a XR Unity developer and educator
 
 ![Headshot](/assets/jon-headshot-2.jpg)
 
-> 2026: I'm currently a Teaching Technologist in Virtual and Augmented Reality at the University of Bristol, primarily supporting the MSc Immersive Technologies programme. 
+> 2026: I'm currently a Teaching Technologist in Virtual and Augmented Reality at the University of Bristol, primarily supporting the MSc Immersive Technologies programme. I also occasionally work as a freelance Unity developer. 
 
 I'm fortunate to work alongside a diverse and inspiring teaching team whose expertise spans Computer Science and the Arts. Our team brings together academics, technicians, researchers, and creative practitioners, creating a rich environment for learning and experimentation. I co-manage the Immersive Project Room, helping students access the hardware, software, and support they need to learn, experiment, and achieve their project goals.
 
